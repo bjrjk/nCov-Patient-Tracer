@@ -6,7 +6,7 @@
         xmlns:cefSharpWPF="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
         xmlns:local="clr-namespace:nCov_Patient_Tracer"
         mc:Ignorable="d"
-        Title="密接追踪器" Height="750" Width="1000" SizeChanged="frmMain_SizeChanged">
+        Title="密接追踪器" Height="750" Width="1000" SizeChanged="frmMain_SizeChanged" Closed="frmMain_Closed">
     <Window.Resources>
         <AlternationConverter x:Key="AlternationConverter"/>
     </Window.Resources>
@@ -20,9 +20,17 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Menu x:Name="menu" Width="{Binding ActualWidth, ElementName=grdContainer, Mode=OneWay}" Height="25" Grid.ColumnSpan="2">
-            <Button x:Name="btnAbout" Content="关于" Click="btnAbout_Click" Height="{Binding ActualHeight, ElementName=menu, Mode=OneWay}" />
+            <MenuItem Header="文件" Height="{Binding ActualHeight, ElementName=menu, Mode=OneWay}">
+                <MenuItem x:Name="btnNewConfig" Header="新建" Click="btnNewConfig_Click" />
+                <MenuItem x:Name="btnLoadConfig" Header="加载" Click="btnLoadConfig_Click" />
+                <MenuItem x:Name="btnSaveConfig" Header="保存" Click="btnSaveConfig_Click" />
+            </MenuItem>
+            <MenuItem Header="编辑" Height="{Binding ActualHeight, ElementName=menu, Mode=OneWay}">
+                <MenuItem x:Name="btnEditSite" Header="地点场景" Click="btnEditSite_Click"/>
+            </MenuItem>
+            <MenuItem x:Name="btnAbout" Header="关于" Click="btnAbout_Click" Height="{Binding ActualHeight, ElementName=menu, Mode=OneWay}" />
 
         </Menu>
-        <cefSharpWPF:ChromiumWebBrowser x:Name="web"  Grid.Row="1" Grid.Column="1" Address="https://www.baidu.com/"></cefSharpWPF:ChromiumWebBrowser>
+        <cefSharpWPF:ChromiumWebBrowser x:Name="web"  Grid.Row="1" Grid.Column="1" Address="https://www.baidu.com/"/>
     </Grid>
 </Window>
