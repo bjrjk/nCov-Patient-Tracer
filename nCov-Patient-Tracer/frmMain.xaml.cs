@@ -28,6 +28,7 @@ namespace nCov_Patient_Tracer
         frmModifySite ModifySiteFrm;
         frmModifyPerson ModifyPersonFrm;
         frmModifyTimeSpan ModifyTimeSpanFrm;
+        frmDisplayResult DisplayResultFrm;
         public MainWindow()
         {
             InitializeComponent();
@@ -183,6 +184,12 @@ namespace nCov_Patient_Tracer
                                 i, storage.TimeSpans[i].personID, storage.Persons.size()
                             ));
             }
+        }
+
+        private void btnViewResult_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayResultFrm = new frmDisplayResult();
+            DisplayResultFrm.Show();
         }
     }
 }

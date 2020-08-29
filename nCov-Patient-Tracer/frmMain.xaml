@@ -7,9 +7,6 @@
         xmlns:local="clr-namespace:nCov_Patient_Tracer"
         mc:Ignorable="d"
         Title="密接追踪器" Height="750" Width="1000" SizeChanged="frmMain_SizeChanged" Closed="frmMain_Closed">
-    <Window.Resources>
-        <AlternationConverter x:Key="AlternationConverter"/>
-    </Window.Resources>
     <Grid x:Name="grdContainer">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -33,10 +30,27 @@
             <MenuItem Header="工具" Height="{Binding ActualHeight, ElementName=menu, Mode=OneWay}">
                 <MenuItem x:Name="btnGenData" Header="数据生成器" Click="btnGenData_Click" />
                 <MenuItem x:Name="btnVerifyData" Header="数据校验器" Click="btnVerifyData_Click"/>
+                <MenuItem x:Name="btnViewResult" Header="结果查看器" Click="btnViewResult_Click"/>
             </MenuItem>
             <MenuItem x:Name="btnAbout" Header="关于" Click="btnAbout_Click" Height="{Binding ActualHeight, ElementName=menu, Mode=OneWay}" />
 
         </Menu>
+        <Grid Grid.Row="1" Margin="0" >
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="6*"/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button x:Name="btnPrepare" Content="处理数据" />
+            <Label Content="全部人员列表：" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <ListBox x:Name="lstPeople" Grid.Row="2" IsEnabled="False">
+                
+            </ListBox>
+            <Button x:Name="btnQuery" Content="查询结果" Grid.Row="3" IsEnabled="False"/>
+            <Button x:Name="btnSave" Content="保存信息" Grid.Row="4" IsEnabled="False"/>
+        </Grid>
         <cefSharpWPF:ChromiumWebBrowser x:Name="web"  Grid.Row="1" Grid.Column="1" Address="https://www.baidu.com/"/>
     </Grid>
 </Window>

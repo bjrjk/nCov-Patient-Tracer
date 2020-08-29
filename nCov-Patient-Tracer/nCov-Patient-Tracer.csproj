@@ -126,6 +126,9 @@
     </ApplicationDefinition>
     <Compile Include="DSA\Vector.cs" />
     <Compile Include="DSA\VectorHelper.cs" />
+    <Compile Include="Forms\frmDisplayResult.xaml.cs">
+      <DependentUpon>frmDisplayResult.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmModifyTimeSpan.xaml.cs">
       <DependentUpon>frmModifyTimeSpan.xaml</DependentUpon>
     </Compile>
@@ -140,6 +143,10 @@
     <Compile Include="Strcture\Site.cs" />
     <Compile Include="Strcture\Storage.cs" />
     <Compile Include="Strcture\TimeSpan.cs" />
+    <Page Include="Forms\frmDisplayResult.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\frmModifyTimeSpan.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
