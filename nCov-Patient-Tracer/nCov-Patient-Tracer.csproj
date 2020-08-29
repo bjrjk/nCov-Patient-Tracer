@@ -126,6 +126,12 @@
     </ApplicationDefinition>
     <Compile Include="DSA\Vector.cs" />
     <Compile Include="DSA\VectorHelper.cs" />
+    <Compile Include="Forms\frmModifyTimeSpan.xaml.cs">
+      <DependentUpon>frmModifyTimeSpan.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmModifyPerson.xaml.cs">
+      <DependentUpon>frmModifyPerson.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmModifySite.xaml.cs">
       <DependentUpon>frmModifySite.xaml</DependentUpon>
     </Compile>
@@ -134,6 +140,14 @@
     <Compile Include="Strcture\Site.cs" />
     <Compile Include="Strcture\Storage.cs" />
     <Compile Include="Strcture\TimeSpan.cs" />
+    <Page Include="Forms\frmModifyTimeSpan.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\frmModifyPerson.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Forms\frmModifySite.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

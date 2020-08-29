@@ -37,7 +37,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Label Content="ID："  Margin="0,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label Content="场景ID："  Margin="0,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             <TextBox x:Name="txtID" Grid.Column="1" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsEnabled="False" />
             <Label Content="经度：" Grid.Row="1" Margin="0,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             <TextBox x:Name="txtLongitude" Grid.Column="1" Grid.Row="1" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />

@@ -21,12 +21,18 @@
         </Grid.RowDefinitions>
         <Menu x:Name="menu" Width="{Binding ActualWidth, ElementName=grdContainer, Mode=OneWay}" Height="25" Grid.ColumnSpan="2">
             <MenuItem Header="文件" Height="{Binding ActualHeight, ElementName=menu, Mode=OneWay}">
-                <MenuItem x:Name="btnNewConfig" Header="新建" Click="btnNewConfig_Click" />
-                <MenuItem x:Name="btnLoadConfig" Header="加载" Click="btnLoadConfig_Click" />
-                <MenuItem x:Name="btnSaveConfig" Header="保存" Click="btnSaveConfig_Click" />
+                <MenuItem x:Name="btnNewConfig" Header="新建配置文件" Click="btnNewConfig_Click" />
+                <MenuItem x:Name="btnLoadConfig" Header="加载配置文件" Click="btnLoadConfig_Click" />
+                <MenuItem x:Name="btnSaveConfig" Header="保存配置文件" Click="btnSaveConfig_Click" />
             </MenuItem>
             <MenuItem Header="编辑" Height="{Binding ActualHeight, ElementName=menu, Mode=OneWay}">
                 <MenuItem x:Name="btnEditSite" Header="地点场景" Click="btnEditSite_Click"/>
+                <MenuItem x:Name="btnEditPerson" Header="人员信息" Click="btnEditPerson_Click"/>
+                <MenuItem x:Name="btnEditTimeSpan" Header="人员到访时间段" Click="btnEditTimeSpan_Click"/>
+            </MenuItem>
+            <MenuItem Header="工具" Height="{Binding ActualHeight, ElementName=menu, Mode=OneWay}">
+                <MenuItem x:Name="btnGenData" Header="数据生成器" Click="btnGenData_Click" />
+                <MenuItem x:Name="btnVerifyData" Header="数据校验器" Click="btnVerifyData_Click"/>
             </MenuItem>
             <MenuItem x:Name="btnAbout" Header="关于" Click="btnAbout_Click" Height="{Binding ActualHeight, ElementName=menu, Mode=OneWay}" />
 
