@@ -9,47 +9,47 @@ namespace nCov_Patient_Tracer.Strcture
 {
     class Storage
     {
-        public int coordIncCnt, personIncCnt, siteIncCnt;
-        public Vector<Coordinate> Coordinates;
+        public int timespanIncCnt, personIncCnt, siteIncCnt;
+        public Vector<TimeSpan> TimeSpans;
         public Vector<Person> Persons;
         public Vector<Site> Sites;
         public Storage()
         {
-            coordIncCnt = personIncCnt = siteIncCnt = 0;
-            Coordinates = new Vector<Coordinate>();
+            timespanIncCnt = personIncCnt = siteIncCnt = 0;
+            TimeSpans = new Vector<TimeSpan>();
             Persons = new Vector<Person>();
             Sites = new Vector<Site>();
         }
-        public Storage(int coordIncCnt, int personIncCnt, int siteIncCnt,
-            Vector<Coordinate> Coordinates, Vector<Person> Persons, Vector<Site> Sites)
+        public Storage(int timespanIncCnt, int personIncCnt, int siteIncCnt,
+            Vector<TimeSpan> TimeSpans, Vector<Person> Persons, Vector<Site> Sites)
         {
-            this.coordIncCnt = coordIncCnt;
+            this.timespanIncCnt = timespanIncCnt;
             this.personIncCnt = personIncCnt;
             this.siteIncCnt = siteIncCnt;
-            this.Coordinates = Coordinates;
+            this.TimeSpans = TimeSpans;
             this.Persons = Persons;
             this.Sites = Sites;
         }
         public static Storage read(System.IO.BinaryReader reader)
         {
-            int coordIncCnt, personIncCnt, siteIncCnt;
-            Vector<Coordinate> Coordinates;
+            int timespanIncCnt, personIncCnt, siteIncCnt;
+            Vector<TimeSpan> TimeSpans;
             Vector<Person> Persons;
             Vector<Site> Sites;
-            coordIncCnt = reader.ReadInt32();
+            timespanIncCnt = reader.ReadInt32();
             personIncCnt = reader.ReadInt32();
             siteIncCnt = reader.ReadInt32();
-            Coordinates = VectorHelper.readCoordinates(reader);
+            TimeSpans = VectorHelper.readTimeSpans(reader);
             Persons = VectorHelper.readPersons(reader);
             Sites = VectorHelper.readSites(reader);
-            return new Storage(coordIncCnt, personIncCnt, siteIncCnt, Coordinates, Persons, Sites);
+            return new Storage(timespanIncCnt, personIncCnt, siteIncCnt, TimeSpans, Persons, Sites);
         }
         public void write(System.IO.BinaryWriter writer)
         {
-            writer.Write(coordIncCnt);
+            writer.Write(timespanIncCnt);
             writer.Write(personIncCnt);
             writer.Write(siteIncCnt);
-            VectorHelper.writeCoordinates(writer, Coordinates);
+            VectorHelper.writeTimeSpans(writer, TimeSpans);
             VectorHelper.writePersons(writer, Persons);
             VectorHelper.writeSites(writer, Sites);
         }

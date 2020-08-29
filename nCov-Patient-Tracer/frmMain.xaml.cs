@@ -29,7 +29,6 @@ namespace nCov_Patient_Tracer
         public MainWindow()
         {
             InitializeComponent();
-            ModifySiteFrm = new frmModifySite();
             web.Address = Global.WebURL;
         }
         private void btnAbout_Click(object sender, RoutedEventArgs e)
@@ -42,6 +41,7 @@ namespace nCov_Patient_Tracer
         }
         private void btnEditSite_Click(object sender, RoutedEventArgs e)
         {
+            ModifySiteFrm = new frmModifySite();
             ModifySiteFrm.Show();
         }
 
@@ -84,7 +84,7 @@ namespace nCov_Patient_Tracer
 
         private void frmMain_Closed(object sender, EventArgs e)
         {
-            ModifySiteFrm.Close();
+            Environment.Exit(0);
         }
     }
 }

@@ -85,5 +85,45 @@ namespace nCov_Patient_Tracer.DSA
                 v[i].write(writer);
             }
         }
+        public static Vector<Strcture.TimeSpan> readTimeSpans(System.IO.BinaryReader reader)
+        {
+            Vector<Strcture.TimeSpan> v = new Vector<Strcture.TimeSpan>();
+            int num = reader.ReadInt32();
+            v.reserve(num);
+            for (int i = 0; i < num; i++)
+            {
+                v[i] = Strcture.TimeSpan.read(reader);
+            }
+            return v;
+        }
+        public static void writeTimeSpans(System.IO.BinaryWriter writer, Vector<Strcture.TimeSpan> v)
+        {
+            writer.Write(v.size());
+            for (int i = 0; i < v.size(); i++)
+            {
+                v[i].write(writer);
+            }
+        }
+        public static Vector<int> Str2IntVector(string s)
+        {
+            if (s.Trim() == "") return new Vector<int>();
+            string[] arr = s.Trim().Split();
+            Vector<int> v = new Vector<int>();
+            v.reserve(arr.Length);
+            for(int i = 0; i < arr.Length; i++)
+            {
+                v[i] = int.Parse(arr[i]);
+            }
+            return v;
+        }
+        public static string IntVector2Str(Vector<int> v)
+        {
+            string s = "";
+            for (int i = 0; i < v.size(); i++)
+            {
+                s += v[i].ToString() + " ";
+            }
+            return s;
+        }
     }
 }
