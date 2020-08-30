@@ -9,7 +9,7 @@ namespace nCov_Patient_Tracer.DSA
 {
     class Vector<T>
     {
-        private T[] _arr;
+        public T[] _arr;
         private int _size;
         private int _capacity;
         public Vector()

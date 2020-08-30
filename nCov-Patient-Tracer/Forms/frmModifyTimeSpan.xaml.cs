@@ -36,7 +36,8 @@ namespace nCov_Patient_Tracer.Forms
             {
                 Strcture.TimeSpan p = new Strcture.TimeSpan(storage.timespanIncCnt++,
                     int.Parse(txtStartHour.Text),int.Parse(txtEndHour.Text),
-                    int.Parse(txtPersonID.Text), chkIsProtected.IsChecked==true);
+                    int.Parse(txtPersonID.Text),int.Parse(txtSiteID.Text), 
+                    chkIsProtected.IsChecked==true);
                 storage.TimeSpans.append(p);
             }
             else
@@ -62,6 +63,7 @@ namespace nCov_Patient_Tracer.Forms
             t.startHour = int.Parse(txtStartHour.Text);
             t.endHour = int.Parse(txtEndHour.Text);
             t.personID = int.Parse(txtPersonID.Text);
+            t.siteID = int.Parse(txtSiteID.Text);
             t.isProtected = chkIsProtected.IsChecked==true;
         }
         private void LoadTimeSpan(Strcture.TimeSpan t)
@@ -70,6 +72,7 @@ namespace nCov_Patient_Tracer.Forms
             txtStartHour.Text = t.startHour.ToString();
             txtEndHour.Text = t.endHour.ToString();
             txtPersonID.Text = t.personID.ToString();
+            txtSiteID.Text = t.siteID.ToString();
             chkIsProtected.IsChecked = t.isProtected;
         }
         private void RefreshList()
@@ -95,6 +98,7 @@ namespace nCov_Patient_Tracer.Forms
             txtStartHour.Clear();
             txtEndHour.Clear();
             txtPersonID.Clear();
+            txtSiteID.Clear();
             chkIsProtected.IsChecked = false;
         }
         private void lstPeople_SelectionChanged(object sender, SelectionChangedEventArgs e)

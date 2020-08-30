@@ -39,17 +39,19 @@
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
                 <RowDefinition Height="6*"/>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button x:Name="btnPrepare" Content="处理数据" />
-            <Label Content="全部人员列表：" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <ListBox x:Name="lstPeople" Grid.Row="2" IsEnabled="False">
+            <Button x:Name="btnPrepare" Content="处理数据" Click="btnPrepare_Click" />
+            <ProgressBar x:Name="progress"  Grid.Row="1" Height="25" Value="0" />
+            <Label Content="全部人员列表：" Grid.Row="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <ListBox x:Name="lstPeople" Grid.Row="3" IsEnabled="False">
                 
             </ListBox>
-            <Button x:Name="btnQuery" Content="查询结果" Grid.Row="3" IsEnabled="False"/>
-            <Button x:Name="btnSave" Content="保存信息" Grid.Row="4" IsEnabled="False"/>
+            <Button x:Name="btnQuery" Content="查询结果" Grid.Row="4" IsEnabled="False"/>
+            <Button x:Name="btnSave" Content="保存信息" Grid.Row="5" IsEnabled="False"/>
         </Grid>
         <cefSharpWPF:ChromiumWebBrowser x:Name="web"  Grid.Row="1" Grid.Column="1" Address="https://www.baidu.com/"/>
     </Grid>

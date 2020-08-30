@@ -124,6 +124,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DSA\Algorithm.cs" />
+    <Compile Include="DSA\HashTable.cs" />
     <Compile Include="DSA\Vector.cs" />
     <Compile Include="DSA\VectorHelper.cs" />
     <Compile Include="Forms\frmDisplayResult.xaml.cs">
@@ -140,9 +142,11 @@
     </Compile>
     <Compile Include="Strcture\Coordinate.cs" />
     <Compile Include="Strcture\Person.cs" />
+    <Compile Include="Strcture\ProcessedStorage.cs" />
     <Compile Include="Strcture\Site.cs" />
     <Compile Include="Strcture\Storage.cs" />
     <Compile Include="Strcture\TimeSpan.cs" />
+    <Compile Include="Tests\Test.cs" />
     <Page Include="Forms\frmDisplayResult.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

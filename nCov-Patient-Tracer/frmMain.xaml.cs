@@ -2,6 +2,7 @@
 using nCov_Patient_Tracer.DSA;
 using nCov_Patient_Tracer.Forms;
 using nCov_Patient_Tracer.Strcture;
+using nCov_Patient_Tracer.Tests;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -32,11 +33,12 @@ namespace nCov_Patient_Tracer
         public MainWindow()
         {
             InitializeComponent();
+            Test.testMain();
             web.Address = Global.WebURL;
         }
         private void btnAbout_Click(object sender, RoutedEventArgs e)
         {
-            web.Address = Global.WebURL+"about.html";
+            web.Address = Global.WebURL + "about.html";
         }
         private void frmMain_SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -57,19 +59,19 @@ namespace nCov_Patient_Tracer
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "nCov-Patient-Tracer配置文件(*.ncov.bin)|*.ncov.bin|所有文件(*.*)|*.*";
-            if (dialog.ShowDialog()==false)
+            if (dialog.ShowDialog() == false)
                 return;
             Global.configPath = dialog.FileName;
             Global.storage = Storage.read(
                 new System.IO.BinaryReader(
-                    new System.IO.FileStream(Global.configPath,System.IO.FileMode.Open)
+                    new System.IO.FileStream(Global.configPath, System.IO.FileMode.Open)
                     )
                 );
             MessageBox.Show("加载成功！", "提示信息");
         }
         private void btnSaveConfig_Click(object sender, RoutedEventArgs e)
         {
-            if(Global.configPath == null)
+            if (Global.configPath == null)
             {
                 SaveFileDialog dialog = new SaveFileDialog();
                 dialog.Filter = "nCov-Patient-Tracer配置文件(*.ncov.bin)|*.ncov.bin|所有文件(*.*)|*.*";
@@ -111,12 +113,12 @@ namespace nCov_Patient_Tracer
             storage.personIncCnt = PeopleNumber;
             storage.siteIncCnt = SiteNumber;
             storage.timespanIncCnt = PeopleNumber * SiteNumber;
-            for (int i=0;i< PeopleNumber; i++)
+            for (int i = 0; i < PeopleNumber; i++)
             {
                 Person p = new Person(i, "测试人员" + i.ToString(),
                     "", "", "");
                 storage.Persons.append(p);
-                for(int j = 0; j < SiteNumber; j++)
+                for (int j = 0; j < SiteNumber; j++)
                 {
                     p.timeSpanCollection.append(i * SiteNumber + j);
                 }
@@ -125,7 +127,7 @@ namespace nCov_Patient_Tracer
             for (int i = 0; i < SiteNumber; i++)
             {
                 Site s = new Site(i, new Coordinate(
-                    116.4+ra.NextDouble()-0.5,39.9+ra.NextDouble()-0.5
+                    116.4 + ra.NextDouble() - 0.5, 39.9 + ra.NextDouble() - 0.5
                     ),
                     "测试地点" + i.ToString()
                     );
@@ -135,12 +137,12 @@ namespace nCov_Patient_Tracer
                     s.timeSpanCollection.append(j * SiteNumber + i);
                 }
             }
-            for(int i=0;i< PeopleNumber* SiteNumber; i++)
+            for (int i = 0; i < PeopleNumber * SiteNumber; i++)
             {
-                int t1=ra.Next(0,100), t2 = ra.Next(0, 100);
-                double t3=ra.NextDouble();
+                int t1 = ra.Next(0, 100), t2 = ra.Next(0, 100);
+                double t3 = ra.NextDouble();
                 Strcture.TimeSpan t = new Strcture.TimeSpan(i,
-                    Math.Min(t1, t2), Math.Max(t1, t2),i/ SiteNumber, t3 > 0.5);
+                    Math.Min(t1, t2), Math.Max(t1, t2), i / SiteNumber, i % SiteNumber, t3 > 0.5);
                 storage.TimeSpans.append(t);
             }
             MessageBox.Show("随机生成成功！", "提示信息");
@@ -149,18 +151,18 @@ namespace nCov_Patient_Tracer
         private void btnVerifyData_Click(object sender, RoutedEventArgs e)
         {
             Storage storage = Global.storage;
-            for(int i = 0; i < storage.Persons.size(); i++)
+            for (int i = 0; i < storage.Persons.size(); i++)
             {
-                for(int j = 0; j < storage.Persons[i].timeSpanCollection.size(); j++)
+                for (int j = 0; j < storage.Persons[i].timeSpanCollection.size(); j++)
                 {
                     if (storage.Persons[i].timeSpanCollection[j] > storage.TimeSpans.size())
                         MessageBox.Show(
-                            String.Format("验证Persons[{0}]的timeSpanCollection[{1}]->{2}时TimeSpans.size()不通过！",
-                                i,j, storage.Persons[i].timeSpanCollection[j]
+                            String.Format("验证Persons[{0}].timeSpanCollection[{1}]->{2}时TimeSpans.size()不通过！",
+                                i, j, storage.Persons[i].timeSpanCollection[j]
                             ));
                     if (storage.TimeSpans[storage.Persons[i].timeSpanCollection[j]].personID != i)
                         MessageBox.Show(
-                                String.Format("验证Persons[{0}]的timeSpanCollection[{1}].personID->{2}时不通过！",
+                                String.Format("验证Persons[{0}].timeSpanCollection[{1}].personID->{2}时不通过！",
                                     i, j, storage.TimeSpans[storage.Persons[i].timeSpanCollection[j]].personID
                                 ));
                 }
@@ -174,14 +176,24 @@ namespace nCov_Patient_Tracer
                             String.Format("验证Sites[{0}].timeSpanCollection[{1}]->{2}时TimeSpans.size()不通过！",
                                 i, j, storage.Sites[i].timeSpanCollection[j]
                             ));
+                    if (storage.TimeSpans[storage.Sites[i].timeSpanCollection[j]].siteID != i)
+                        MessageBox.Show(
+                                String.Format("验证Sites[{0}].timeSpanCollection[{1}].siteID->{2}时不通过！",
+                                    i, j, storage.TimeSpans[storage.Persons[i].timeSpanCollection[j]].siteID
+                                ));
                 }
             }
-            for(int i = 0; i < storage.TimeSpans.size(); i++)
+            for (int i = 0; i < storage.TimeSpans.size(); i++)
             {
                 if (storage.TimeSpans[i].personID > storage.Persons.size())
                     MessageBox.Show(
                             String.Format("验证TimeSpans[{0}].personID->{1}时Persons.size()->{2}不通过！",
                                 i, storage.TimeSpans[i].personID, storage.Persons.size()
+                            ));
+                if (storage.TimeSpans[i].siteID > storage.Sites.size())
+                    MessageBox.Show(
+                            String.Format("验证TimeSpans[{0}].siteID->{1}时Sites.size()->{2}不通过！",
+                                i, storage.TimeSpans[i].siteID, storage.Sites.size()
                             ));
             }
         }
@@ -190,6 +202,11 @@ namespace nCov_Patient_Tracer
         {
             DisplayResultFrm = new frmDisplayResult();
             DisplayResultFrm.Show();
+        }
+
+        private void btnPrepare_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
