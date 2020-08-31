@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace nCov_Patient_Tracer.Strcture
 {
-    class TimeSpan
+    class TimeSpan:IComparable<TimeSpan>
     {
         public int ID;
         public int startHour, endHour;
@@ -42,6 +42,10 @@ namespace nCov_Patient_Tracer.Strcture
             writer.Write(siteID);
             writer.Write(isProtected);
         }
+        public int CompareTo(TimeSpan other)
+        {
+            return ID.CompareTo(other.ID);
+        }
     }
     class TimeSpanComparerByStartHour : IComparer<TimeSpan>
     {
@@ -55,6 +59,13 @@ namespace nCov_Patient_Tracer.Strcture
         public int Compare(TimeSpan x, TimeSpan y)
         {
             return x.endHour.CompareTo(y.endHour);
+        }
+    }
+    class TimeSpanComparerByContent : IComparer<TimeSpan>
+    {
+        public int Compare(TimeSpan x, TimeSpan y)
+        {
+            return x.ID.CompareTo(y.ID);
         }
     }
 }

@@ -11,6 +11,12 @@ namespace nCov_Patient_Tracer.Strcture
     {
         public Vector<TimeSpan> TimeSpanSortedByStartHour;
         public Vector<TimeSpan> TimeSpanSortedByEndHour;
-
+        public HashTable<TimeSpan> Table;
+        public ProcessedStorage(Storage s)
+        {
+            TimeSpanSortedByStartHour = new Vector<TimeSpan>();
+            TimeSpanSortedByEndHour = new Vector<TimeSpan>();
+            Table = new HashTable<TimeSpan>();
+        }
     }
 }
