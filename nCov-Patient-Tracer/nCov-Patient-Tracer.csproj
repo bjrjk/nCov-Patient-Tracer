@@ -126,6 +126,7 @@
     </ApplicationDefinition>
     <Compile Include="DSA\Algorithm.cs" />
     <Compile Include="DSA\HashTable.cs" />
+    <Compile Include="DSA\IntervalTree.cs" />
     <Compile Include="DSA\Vector.cs" />
     <Compile Include="DSA\VectorHelper.cs" />
     <Compile Include="Forms\frmDisplayResult.xaml.cs">

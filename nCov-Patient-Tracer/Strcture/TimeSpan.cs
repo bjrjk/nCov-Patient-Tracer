@@ -46,6 +46,11 @@ namespace nCov_Patient_Tracer.Strcture
         {
             return ID.CompareTo(other.ID);
         }
+        public bool InterSection(TimeSpan other)
+        {
+            return startHour <= endHour && startHour <= other.endHour &&
+                other.startHour <= endHour && other.startHour <= other.endHour;
+        }
     }
     class TimeSpanComparerByStartHour : IComparer<TimeSpan>
     {

@@ -86,5 +86,29 @@ namespace nCov_Patient_Tracer.Strcture
 
             return arr;
         }
+
+        public Vector<Person> queryBruteForce(Person p)
+        {
+            HashTable<Person> PersonTable = new HashTable<Person>();
+            Vector<Person> result = new Vector<Person>();
+            for(int i = 0; i < p.timeSpanCollection.size(); i++)
+            {
+                TimeSpan t = storage.TimeSpans[p.timeSpanCollection[i]];
+                Vector<TimeSpan> arr = TimeSpanSortedByStartHour[t.siteID];
+                for(int j = 0; j < arr.size(); j++)
+                {
+                    if (t.InterSection(arr[j]))
+                    {
+                        if (storage.Persons[arr[j].personID].CompareTo(p) == 0) continue;
+                        if (PersonTable.query(storage.Persons[arr[j].personID]) == null)
+                        {
+                            PersonTable.insert(storage.Persons[arr[j].personID]);
+                            result.append(storage.Persons[arr[j].personID]);
+                        }
+                    }
+                }
+            }
+            return result;
+        }
     }
 }

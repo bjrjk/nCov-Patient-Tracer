@@ -240,9 +240,12 @@ namespace nCov_Patient_Tracer
         private void btnQuery_Click(object sender, RoutedEventArgs e)
         {
             if (lstPeople.SelectedItems.Count == 0)
+            {
                 MessageBox.Show("您未选中任何一人进行追踪！", "提示信息");
+                return;
+            }  
             string s = "";
-            Vector<Person> arr = Global.processedStorage.query(
+            Vector<Person> arr = Global.processedStorage.queryBruteForce(
                 (Person)(((ListBoxItem)lstPeople.SelectedItem).DataContext));
             Algorithm.quickSort(arr, new PersonComparerByContent());
             for(int i = 0; i < arr.size(); i++)
