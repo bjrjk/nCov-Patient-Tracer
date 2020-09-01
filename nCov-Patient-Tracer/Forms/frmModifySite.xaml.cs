@@ -116,7 +116,7 @@ namespace nCov_Patient_Tracer.Forms
         }
         private void CreateSiteGUI()
         {
-            lstLocations.SelectedItems.Clear();
+            lstLocations.SelectedItem = null ;
             ClearTXT();
             txtID.Text = (Global.storage.siteIncCnt).ToString();
         }

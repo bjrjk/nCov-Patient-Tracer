@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using CefSharp;
+using Microsoft.Win32;
 using nCov_Patient_Tracer.DSA;
 using nCov_Patient_Tracer.Forms;
 using nCov_Patient_Tracer.Strcture;
@@ -54,6 +55,10 @@ namespace nCov_Patient_Tracer
         {
             Global.storage = new Storage();
             Global.configPath = null;
+            Global.processedStorage = null;
+            progress.Value = 0;
+            lstPeople.Items.Clear();
+            btnQuery.IsEnabled = false;
         }
         private void btnLoadConfig_Click(object sender, RoutedEventArgs e)
         {
@@ -206,7 +211,45 @@ namespace nCov_Patient_Tracer
 
         private void btnPrepare_Click(object sender, RoutedEventArgs e)
         {
-
+            progress.Value = 0;
+            Global.processedStorage = new ProcessedStorage(Global.storage);
+            progress.Value = 80;
+            lstPeople.Items.Clear();
+            Vector<Person> v = Global.storage.Persons;
+            for (int i = 0; i < v.size(); i++)
+            {
+                ListBoxItem lstItem = new ListBoxItem();
+                lstItem.Content = String.Format("[{0},{1},{2}]", v[i].ID, v[i].name, v[i].company);
+                lstItem.DataContext = v[i];
+                lstPeople.Items.Add(lstItem);
+            }
+            lstPeople.IsEnabled = true;
+            btnQuery.IsEnabled = true;
+            progress.Value = 100;
+        }
+        private void runJavaScript(string command)
+        {
+            web.ExecuteScriptAsync(command);
+        }
+        private void showDebugInformationInWeb(string content)
+        {
+            runJavaScript(String.Format(
+                "document.body.innerText='{0}';",content
+                ));
+        }
+        private void btnQuery_Click(object sender, RoutedEventArgs e)
+        {
+            if (lstPeople.SelectedItems.Count == 0)
+                MessageBox.Show("您未选中任何一人进行追踪！", "提示信息");
+            string s = "";
+            Vector<Person> arr = Global.processedStorage.query(
+                (Person)(((ListBoxItem)lstPeople.SelectedItem).DataContext));
+            Algorithm.quickSort(arr, new PersonComparerByContent());
+            for(int i = 0; i < arr.size(); i++)
+            {
+                s += arr[i].ID.ToString() + " ";
+            }
+            showDebugInformationInWeb(s);
         }
     }
 }

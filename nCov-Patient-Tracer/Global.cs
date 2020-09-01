@@ -11,6 +11,7 @@ namespace nCov_Patient_Tracer
     {
         public const string WebURL = "https://ncov-patient-tracer.renjikai.com/";
         public static Storage storage = new Storage();
+        public static ProcessedStorage processedStorage;
         public static string configPath;
     }
 }

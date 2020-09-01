@@ -55,6 +55,12 @@ namespace nCov_Patient_Tracer.DSA
             _arr[_size] = value;
             _size++;
         } 
-        
+        public bool remove(int index)
+        {
+            if (index < 0 || index >= _size) return false;
+            for (int i = index; i < _size; i++) _arr[i] = _arr[i + 1];
+            _size--;
+            return true;
+        }
     }
 }

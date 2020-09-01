@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace nCov_Patient_Tracer.Strcture
 {
-    class Person
+    class Person:IComparable<Person>
     {
         public int ID;
         public string name, company, address, telephone;
@@ -54,6 +54,17 @@ namespace nCov_Patient_Tracer.Strcture
             writer.Write(address);
             writer.Write(telephone);
             VectorHelper.writeInts(writer, timeSpanCollection);
+        }
+        public int CompareTo(Person other)
+        {
+            return ID.CompareTo(other.ID);
+        }
+    }
+    class PersonComparerByContent : IComparer<Person>
+    {
+        public int Compare(Person x, Person y)
+        {
+            return x.ID.CompareTo(y.ID);
         }
     }
 }

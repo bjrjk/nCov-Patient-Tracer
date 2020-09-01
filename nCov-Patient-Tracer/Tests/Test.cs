@@ -45,7 +45,7 @@ namespace nCov_Patient_Tracer.Tests
             Algorithm.quickSort(v, new IntComparer());
             int findNum = ra.Next();
             int pos = Algorithm.lower_bound(v, findNum, new IntComparer());
-            if (pos == -1)
+            if (pos == v.size())
             {
                 if (!(v[v.size() - 1] < findNum)) return false;
             }
@@ -55,7 +55,7 @@ namespace nCov_Patient_Tracer.Tests
                     v[pos] >= findNum && pos > 0 && v[pos - 1] < findNum)) return false;
             }
             pos = Algorithm.upper_bound(v, findNum, new IntComparer());
-            if (pos == -1)
+            if (pos == v.size())
             {
                 if (!(v[v.size() - 1] <= findNum)) return false;
             }

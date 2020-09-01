@@ -54,7 +54,7 @@ namespace nCov_Patient_Tracer.DSA
                 else r = mid;
             }
             if (comparer.Compare(v, arr[l]) <= 0) return l;
-            else return -1;
+            else return arr.size();
         }
         public static int upper_bound<T, C>(Vector<T> arr, T v, C comparer)
              where C : IComparer<T>
@@ -67,7 +67,7 @@ namespace nCov_Patient_Tracer.DSA
                 else r = mid;
             }
             if (comparer.Compare(v, arr[l]) < 0) return l;
-            else return -1;
+            else return arr.size();
         }
     }
 }

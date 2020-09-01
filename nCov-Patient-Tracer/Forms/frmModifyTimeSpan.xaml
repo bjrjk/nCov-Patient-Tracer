@@ -15,9 +15,9 @@
         <DockPanel LastChildFill="True" Margin="0,0,0,0" Grid.Column="0">
             <Label Content="全部时间段：" Height="25" Margin="0,0,0,0" VerticalAlignment="Top" DockPanel.Dock="Top"/>
             <Button x:Name="btnCreateNew" Content="新增时间段"  Margin="0,0,0,0" VerticalAlignment="Top" Width="100" DockPanel.Dock="Bottom" Click="btnCreateNew_Click"/>
-            <ListView x:Name="lstPeople" Margin="0,0,0,0" VerticalAlignment="Top" SelectionChanged="lstPeople_SelectionChanged">
+            <ListBox x:Name="lstPeople" Margin="0,0,0,0" VerticalAlignment="Top" SelectionChanged="lstPeople_SelectionChanged">
 
-            </ListView>
+            </ListBox>
 
         </DockPanel>
         <Grid Grid.Column="1" Margin="0,0,0,0" >

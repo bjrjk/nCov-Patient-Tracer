@@ -54,7 +54,7 @@ namespace nCov_Patient_Tracer.Forms
         }
         private void CreatePersonGUI()
         {
-            lstPeople.SelectedItems.Clear();
+            lstPeople.SelectedItem = null;
             ClearTXT();
             txtID.Text = (Global.storage.personIncCnt).ToString();
         }

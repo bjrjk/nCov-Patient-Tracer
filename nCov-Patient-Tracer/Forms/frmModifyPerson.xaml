@@ -15,9 +15,9 @@
         <DockPanel LastChildFill="True" Margin="0,0,0,0" Grid.Column="0">
             <Label Content="全部人员：" Height="25" Margin="0,0,0,0" VerticalAlignment="Top" DockPanel.Dock="Top"/>
             <Button x:Name="btnCreateNew" Content="新增人员"  Margin="0,0,0,0" VerticalAlignment="Top" Width="100" DockPanel.Dock="Bottom" Click="btnCreateNew_Click"/>
-            <ListView x:Name="lstPeople" Margin="0,0,0,0" VerticalAlignment="Top" SelectionChanged="lstPeople_SelectionChanged">
+            <ListBox x:Name="lstPeople" Margin="0,0,0,0" VerticalAlignment="Top" SelectionChanged="lstPeople_SelectionChanged">
                 
-            </ListView>
+            </ListBox>
             
         </DockPanel>
         <Grid Grid.Column="1" Margin="0,0,0,0" >
@@ -46,8 +46,8 @@
             <TextBox x:Name="txtAddress" Grid.Column="1" Grid.Row="3" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
             <Label Content="手机号：" Grid.Row="4" Margin="0,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             <TextBox x:Name="txtTelephone" Grid.Column="1" Grid.Row="4" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
-            <Label Content="时间段ID：" Grid.Row="5" Margin="0,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <TextBox x:Name="txtTimeSpanID" Grid.Column="1" Grid.Row="5" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+            <Label Content="时间段ID：" Grid.Row="5" Margin="0,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+            <TextBox x:Name="txtTimeSpanID" Grid.Column="1" Grid.Row="5" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsEnabled="False"/>
             <Button x:Name="btnSubmit" Content="提交"  Margin="0,0,0,0" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Click="btnSubmit_Click"/>
         </Grid>
     </Grid>
