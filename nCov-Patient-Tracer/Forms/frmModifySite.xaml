@@ -15,7 +15,7 @@
         </Grid.ColumnDefinitions>
         <DockPanel LastChildFill="True" Margin="0,0,0,0" Grid.Column="0">
             <Label Content="全部地点：" Height="25" Margin="0,0,0,0" VerticalAlignment="Top" DockPanel.Dock="Top"/>
-            <Button x:Name="btnCreateNew" Content="新增地点"  Margin="0,0,0,0" VerticalAlignment="Top" Width="100" DockPanel.Dock="Bottom" Click="btnCreateNew_Click"/>
+            <Button x:Name="btnCreateNew" Content="新增地点"  Margin="5" DockPanel.Dock="Bottom" Click="btnCreateNew_Click" Height="30"/>
             <ListBox x:Name="lstLocations" Margin="0,0,0,0" VerticalAlignment="Top" SelectionChanged="lstLocations_SelectionChanged">
                 
             </ListBox>
@@ -38,17 +38,17 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Label Content="场景ID："  Margin="0,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <TextBox x:Name="txtID" Grid.Column="1" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsEnabled="False" />
+            <TextBox x:Name="txtID" Grid.Column="1" Margin="0,0,10,0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsEnabled="False" />
             <Label Content="经度：" Grid.Row="1" Margin="0,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <TextBox x:Name="txtLongitude" Grid.Column="1" Grid.Row="1" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+            <TextBox x:Name="txtLongitude" Grid.Column="1" Grid.Row="1" Margin="0,0,10,0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
             <Label Content="纬度：" Grid.Row="2" Margin="0,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <TextBox x:Name="txtLatitude" Grid.Column="1" Grid.Row="2" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+            <TextBox x:Name="txtLatitude" Grid.Column="1" Grid.Row="2" Margin="0,0,10,0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
             <Label Content="地点名称：" Grid.Row="3" Margin="0,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <TextBox x:Name="txtName" Grid.Column="1" Grid.Row="3" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+            <TextBox x:Name="txtName" Grid.Column="1" Grid.Row="3" Margin="0,0,10,0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
             <Label Content="时间段ID：" Grid.Row="4" Margin="0,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
-            <TextBox x:Name="txtTimeSpanID" Grid.Column="1" Grid.Row="4" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsEnabled="False"/>
-            <Button x:Name="btnLocate" Content="定位"  Margin="0,0,0,0" Grid.Row="8" Click="btnLocate_Click" />
-            <Button x:Name="btnSubmit" Content="提交"  Margin="0,0,0,0" Grid.Row="8" Grid.Column="1" Click="btnSubmit_Click"/>
+            <TextBox x:Name="txtTimeSpanID" Grid.Column="1" Grid.Row="4" Margin="0,0,10,0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsEnabled="False"/>
+            <Button x:Name="btnLocate" Content="定位"  Margin="10" Grid.Row="8" Click="btnLocate_Click" />
+            <Button x:Name="btnSubmit" Content="提交"  Margin="10" Grid.Row="8" Grid.Column="1" Click="btnSubmit_Click"/>
         </Grid>
 
         <cefSharpWPF:ChromiumWebBrowser x:Name="web"  Grid.Column="2" Address="https://www.baidu.com/"></cefSharpWPF:ChromiumWebBrowser>

@@ -14,7 +14,7 @@
         </Grid.ColumnDefinitions>
         <DockPanel LastChildFill="True" Margin="0,0,0,0" Grid.Column="0">
             <Label Content="全部人员：" Height="25" Margin="0,0,0,0" VerticalAlignment="Top" DockPanel.Dock="Top"/>
-            <Button x:Name="btnCreateNew" Content="新增人员"  Margin="0,0,0,0" VerticalAlignment="Top" Width="100" DockPanel.Dock="Bottom" Click="btnCreateNew_Click"/>
+            <Button x:Name="btnCreateNew" Content="新增人员"  Margin="0,0,0,0" DockPanel.Dock="Bottom" Click="btnCreateNew_Click" Width="52"/>
             <ListBox x:Name="lstPeople" Margin="0,0,0,0" VerticalAlignment="Top" SelectionChanged="lstPeople_SelectionChanged">
                 
             </ListBox>
@@ -37,18 +37,18 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Label Content="人员ID："  Margin="0,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <TextBox x:Name="txtID" Grid.Column="1" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsEnabled="False" />
+            <TextBox x:Name="txtID" Grid.Column="1" Margin="0,0,50,0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsEnabled="False" />
             <Label Content="姓名：" Grid.Row="1" Margin="0,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <TextBox x:Name="txtName" Grid.Column="1" Grid.Row="1" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+            <TextBox x:Name="txtName" Grid.Column="1" Grid.Row="1" Margin="0,0,50,0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
             <Label Content="公司：" Grid.Row="2" Margin="0,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <TextBox x:Name="txtCompany" Grid.Column="1" Grid.Row="2" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+            <TextBox x:Name="txtCompany" Grid.Column="1" Grid.Row="2" Margin="0,0,50,0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
             <Label Content="地址：" Grid.Row="3" Margin="0,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <TextBox x:Name="txtAddress" Grid.Column="1" Grid.Row="3" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+            <TextBox x:Name="txtAddress" Grid.Column="1" Grid.Row="3" Margin="0,0,50,0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
             <Label Content="手机号：" Grid.Row="4" Margin="0,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <TextBox x:Name="txtTelephone" Grid.Column="1" Grid.Row="4" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+            <TextBox x:Name="txtTelephone" Grid.Column="1" Grid.Row="4" Margin="0,0,50,0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
             <Label Content="时间段ID：" Grid.Row="5" Margin="0,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
-            <TextBox x:Name="txtTimeSpanID" Grid.Column="1" Grid.Row="5" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsEnabled="False"/>
-            <Button x:Name="btnSubmit" Content="提交"  Margin="0,0,0,0" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Click="btnSubmit_Click"/>
+            <TextBox x:Name="txtTimeSpanID" Grid.Column="1" Grid.Row="5" Margin="0,0,50,0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsEnabled="False"/>
+            <Button x:Name="btnSubmit" Content="提交"  Margin="50,5" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Click="btnSubmit_Click"/>
         </Grid>
     </Grid>
 </Window>
