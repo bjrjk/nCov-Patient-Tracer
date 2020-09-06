@@ -7,6 +7,7 @@ using nCov_Patient_Tracer.Tests;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TimeSpan = nCov_Patient_Tracer.Strcture.TimeSpan;
 
 namespace nCov_Patient_Tracer
 {
@@ -225,7 +227,9 @@ namespace nCov_Patient_Tracer
             }
             lstPeople.IsEnabled = true;
             btnQuery.IsEnabled = true;
+            btnSave.IsEnabled = true;
             progress.Value = 100;
+            web.Address = Global.WebURL + "displayinfo.html";
         }
         private void runJavaScript(string command)
         {
@@ -234,7 +238,7 @@ namespace nCov_Patient_Tracer
         private void showDebugInformationInWeb(string content)
         {
             runJavaScript(String.Format(
-                "document.body.innerText='{0}';",content
+                "document.body.innerHTML='{0}';", content
                 ));
         }
         private void btnQuery_Click(object sender, RoutedEventArgs e)
@@ -243,16 +247,59 @@ namespace nCov_Patient_Tracer
             {
                 MessageBox.Show("您未选中任何一人进行追踪！", "提示信息");
                 return;
-            }  
+            }
             string s = "";
-            Vector<Person> arr = Global.processedStorage.queryBruteForce(
-                (Person)(((ListBoxItem)lstPeople.SelectedItem).DataContext));
-            Algorithm.quickSort(arr, new PersonComparerByContent());
-            for(int i = 0; i < arr.size(); i++)
+            Vector<Person> personArr = new Vector<Person>();
+            Global.personArr = personArr;
+            Vector<Vector<Vector<TimeSpan>>> timeSpanArr = new Vector<Vector<Vector<TimeSpan>>>();
+            Global.timeSpanArr = timeSpanArr;
+            for (int k = 0; k < lstPeople.SelectedItems.Count; k++)
             {
-                s += arr[i].ID.ToString() + " ";
+                Person p = (Person)(((ListBoxItem)lstPeople.SelectedItems[k]).DataContext);
+                personArr.append(p);
+                Vector<Vector<Strcture.TimeSpan>> arr = Global.processedStorage.query(p);
+                timeSpanArr.append(arr);
+                s += "<center>";
+                s += "<h1>查询“" + p.name + "”的密切接触者信息</h1><br>";
+                int totalNumber = 0;
+                for (int i = 0; i < arr.size(); i++)
+                {
+                    if (arr[i].size() == 0) continue;
+                    s += "<strong>在地点“" + Global.storage.Sites[arr[i][0].siteID].name + "”：</strong><br>";
+                    s += "本人停留时间：" + Global.storage.TimeSpans[p.timeSpanCollection[i]].startHour.ToString() +
+                        "小时至" + Global.storage.TimeSpans[p.timeSpanCollection[i]].endHour.ToString() + "小时<br>";
+                    s += "密切接触者信息：<br>";
+                    for (int j = 0; j < arr[i].size(); j++)
+                    {
+                        totalNumber++;
+                        s += "姓名：" + Global.storage.Persons[arr[i][j].personID].name + "<br>";
+                        s += "停留时间：" + arr[i][j].startHour.ToString() + "小时至" + arr[i][j].endHour.ToString() + "小时<br>";
+                    }
+                }
+                if (totalNumber == 0)
+                    s += "<strong>没有任何密切接触者！</strong>";
+                s += "</center>";
             }
             showDebugInformationInWeb(s);
+            DisplayResultFrm = new frmDisplayResult();
+            DisplayResultFrm.Show();
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.Filter = "HTML网页(*.html)|*.html|所有文件(*.*)|*.*";
+            if (dialog.ShowDialog() == false)
+                return;
+            var task = web.GetSourceAsync();
+            task.ContinueWith(t =>
+            {
+                using (StreamWriter sw = new StreamWriter(dialog.FileName))
+                {
+                    sw.Write(t.Result);
+                }
+                MessageBox.Show("保存成功！", "提示信息");
+            });
         }
     }
 }

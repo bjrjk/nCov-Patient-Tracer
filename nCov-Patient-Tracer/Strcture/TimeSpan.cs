@@ -1,4 +1,5 @@
-﻿using System;
+﻿using nCov_Patient_Tracer.DSA;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace nCov_Patient_Tracer.Strcture
 {
-    class TimeSpan:IComparable<TimeSpan>
+    class TimeSpan:IComparable<TimeSpan>,ISegment
     {
         public int ID;
         public int startHour, endHour;
@@ -50,6 +51,29 @@ namespace nCov_Patient_Tracer.Strcture
         {
             return startHour <= endHour && startHour <= other.endHour &&
                 other.startHour <= endHour && other.startHour <= other.endHour;
+        }
+
+        public int getStartPoint()
+        {
+            return startHour;
+        }
+
+        public int getEndPoint()
+        {
+            return endHour;
+        }
+
+        public bool InterSection(ISegment seg)
+        {
+            return getStartPoint() <= getEndPoint() && getStartPoint() <= seg.getEndPoint() &&
+                    seg.getStartPoint() <= getEndPoint() && seg.getStartPoint() <= seg.getEndPoint();
+        }
+
+        public int InterSection(int point)
+        {
+            if (getStartPoint() <= point && point <= getEndPoint()) return 0;
+            else if (point < getStartPoint()) return 1;
+            else return -1;
         }
     }
     class TimeSpanComparerByStartHour : IComparer<TimeSpan>

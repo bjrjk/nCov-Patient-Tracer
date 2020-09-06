@@ -26,7 +26,11 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button Grid.ColumnSpan="2" Content="Button" HorizontalAlignment="Left" Height="45" Margin="55,55,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="100" Click="Button_Click"/>
+            <Label Grid.ColumnSpan="2" Content="您正在查询下列人的密接者信息：" Margin="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <TextBlock x:Name="txtNames" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="{}{Names}" Width="198" Grid.Row="1" Margin="5"/>
+            <TextBlock x:Name="txtInfos" Grid.ColumnSpan="2" TextWrapping="Wrap" Grid.Row="2" Margin="5" Text="请点击下方按钮以开始查询："/>
+            <Button x:Name="btnPrevious" Content="上一地点" Height="20" Margin="0" Grid.Row="3" Width="65" Click="btnPrevious_Click"/>
+            <Button x:Name="btnNext" Content="下一地点" Height="20" Margin="0" Grid.Row="3" Width="65" Grid.Column="1" Click="btnNext_Click"/>
         </Grid>
     </Grid>
 </Window>

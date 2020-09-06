@@ -1,4 +1,5 @@
 ﻿using CefSharp;
+using nCov_Patient_Tracer.DSA;
 using nCov_Patient_Tracer.Strcture;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TimeSpan = nCov_Patient_Tracer.Strcture.TimeSpan;
 
 namespace nCov_Patient_Tracer.Forms
 {
@@ -21,10 +23,18 @@ namespace nCov_Patient_Tracer.Forms
     /// </summary>
     public partial class frmDisplayResult : Window
     {
+        int personID = 0;
+        int siteID = 0;
+        static bool queried = false;
         public frmDisplayResult()
         {
             InitializeComponent();
             web.Address = Global.WebURL + "displaymotion.php";
+            txtNames.Text = "";
+            for (int i = 0; i < Global.personArr.size(); i++)
+            {
+                txtNames.Text += Global.personArr[i].name + " ";
+            }
         }
         private void executeJavaScript(string s)
         {
@@ -34,7 +44,7 @@ namespace nCov_Patient_Tracer.Forms
         {
             executeJavaScript("map.clearOverlays();");
         }
-        private void mapCreateInfoWindow(string title,string content,Coordinate coordinate)
+        private void mapCreateInfoWindow(string title, string content, Coordinate coordinate)
         {
             executeJavaScript(String.Format(@"
                 var point = new BMap.Point({0},{1});
@@ -43,7 +53,7 @@ namespace nCov_Patient_Tracer.Forms
                 var opts = {{width : 0, height: 0, title : ""{2}""}};
                 var infoWindow = new BMap.InfoWindow("" {3} "", opts);
                 map.openInfoWindow(infoWindow, point);
-            ", coordinate.longitude,coordinate.latitude,title,content));
+            ", coordinate.longitude, coordinate.latitude, title, content));
         }
         private void mapCenterAndZoom(Coordinate coordinate)
         {
@@ -60,7 +70,7 @@ namespace nCov_Patient_Tracer.Forms
                 map.addOverlay(marker);
             ", coordinate.longitude, coordinate.latitude));
         }
-        private void mapDrawCircle(string strokeColor,string fillColor, Coordinate coordinate)
+        private void mapDrawCircle(string strokeColor, string fillColor, Coordinate coordinate)
         {
             executeJavaScript(String.Format(@"
                 var point = new BMap.Point({0},{1});
@@ -71,12 +81,87 @@ namespace nCov_Patient_Tracer.Forms
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Random ra = new Random();
-            Coordinate c = new Coordinate(116+ra.NextDouble(), 40 + ra.NextDouble());
+            Coordinate c = new Coordinate(116 + ra.NextDouble(), 40 + ra.NextDouble());
             mapClearOverlay();
             mapCenterAndZoom(c);
             mapMark(c);
-            mapDrawCircle("red","blue", c);
+            mapDrawCircle("red", "blue", c);
             mapCreateInfoWindow("高风险地区", "请勿进入！", c);
+        }
+        private void LoadNewSite(int personID, int siteID)
+        {
+
+            TimeSpan t = Global.timeSpanArr[personID][siteID][0];
+            Person p = Global.personArr[personID];
+            mapClearOverlay();
+            Site s = Global.storage.Sites[t.siteID];
+            Coordinate c = s.coordinate;
+            mapCenterAndZoom(c);
+            mapMark(c);
+            mapDrawCircle("red", "blue", c);
+            string content = "";
+            content += "密切接触者信息：<br>";
+            for (int i = 0; i < Global.timeSpanArr[personID][siteID].size(); i++)
+            {
+                content += "姓名：" + Global.storage.Persons[Global.timeSpanArr[personID][siteID][i].personID].name + "<br>";
+            }
+            mapCreateInfoWindow("<strong>查询“" + p.name + "”在“" + s.name + "”处的密切接触者信息</strong>",
+                content, c);
+            txtInfos.Text = "当前查询：" + System.Environment.NewLine +
+                "姓名：" + p.name + System.Environment.NewLine +
+                "地点：" + s.name + System.Environment.NewLine
+                ;
+        }
+        private void QueryIDPlus()
+        {
+            if (siteID != Global.timeSpanArr[personID].size() - 1)
+            {
+                siteID++;
+                return;
+            }
+            else siteID = 0;
+            if (personID != Global.timeSpanArr.size() - 1)
+            {
+                personID++;
+                return;
+            }
+            else personID = 0;
+        }
+        private void QueryIDMinus()
+        {
+            if (siteID != 0)
+            {
+                siteID--;
+                return;
+            }
+            else if (personID == 0) //siteID==0
+            {
+                personID = Global.timeSpanArr.size() - 1;
+                siteID = Global.timeSpanArr[personID].size() - 1;
+                return;
+            }
+            else
+            {
+                personID--;
+                siteID = Global.timeSpanArr[personID].size() - 1;
+                return;
+            }
+        }
+        private void btnPrevious_Click(object sender, RoutedEventArgs e)
+        {
+            if (queried) QueryIDMinus();
+            queried = true;
+            while (Global.timeSpanArr[personID][siteID].size() == 0) QueryIDMinus();
+            LoadNewSite(personID, siteID);
+        }
+
+        private void btnNext_Click(object sender, RoutedEventArgs e)
+        {
+            if (queried) QueryIDPlus();
+            queried = true;
+            while (Global.timeSpanArr[personID][siteID].size() == 0) QueryIDPlus();
+            LoadNewSite(personID, siteID);
+
         }
     }
 }

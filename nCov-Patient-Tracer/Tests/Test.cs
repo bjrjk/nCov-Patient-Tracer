@@ -123,7 +123,7 @@ namespace nCov_Patient_Tracer.Tests
         }
         private static bool testInterSection()
         {
-            const int N = 10000;
+            const int N = 100;
             const int s = -10000, e = 10000;
             Vector<Segment> segs = new Vector<Segment>();
             Random ra = new Random();
@@ -147,6 +147,7 @@ namespace nCov_Patient_Tracer.Tests
         }
         public static void testMain()
         {
+            return;
             for (int i = 0; i < 1000; i++)
             {
                 if (!testQSort())

@@ -13,6 +13,7 @@ namespace nCov_Patient_Tracer.Strcture
         public Storage storage;
         public Vector<Vector<TimeSpan>> TimeSpanSortedByStartHour;
         public Vector<Vector<TimeSpan>> TimeSpanSortedByEndHour;
+        public Vector<IntervalTree<TimeSpan>> intervalTrees;
         public ProcessedStorage(Storage s)
         {
             storage = s;
@@ -21,6 +22,8 @@ namespace nCov_Patient_Tracer.Strcture
             TimeSpanSortedByStartHour.reserve(s.Sites.size());
             TimeSpanSortedByEndHour = new Vector<Vector<TimeSpan>>();
             TimeSpanSortedByEndHour.reserve(s.Sites.size());
+            intervalTrees = new Vector<IntervalTree<TimeSpan>>();
+            intervalTrees.reserve(s.Sites.size());
             for (int i = 0; i < s.Sites.size(); i++)
             {
                 TimeSpanSortedByStartHour[i] = new Vector<TimeSpan>();
@@ -35,14 +38,17 @@ namespace nCov_Patient_Tracer.Strcture
             {
                 Algorithm.quickSort(TimeSpanSortedByStartHour[i], new TimeSpanComparerByStartHour());
                 Algorithm.quickSort(TimeSpanSortedByEndHour[i], new TimeSpanComparerByEndHour());
+                intervalTrees[i] = new IntervalTree<TimeSpan>(TimeSpanSortedByStartHour[i]);
             }
         }
-        public Vector<Person> query(Person p)
+        public Vector<Vector<TimeSpan>> query(Person p)
         {
-            HashTable<Person> PersonTable = new HashTable<Person>();
-            Vector<Person> arr = new Vector<Person>();
+            Vector<Vector<TimeSpan>> arr = new Vector<Vector<TimeSpan>>();
+            arr.reserve(p.timeSpanCollection.size());
             for (int i = 0; i < p.timeSpanCollection.size(); i++)
             {
+                HashTable<TimeSpan> hashTable = new HashTable<TimeSpan>();
+                arr[i] = new Vector<TimeSpan>();
                 TimeSpan t = storage.TimeSpans[p.timeSpanCollection[i]];
                 int startHour_s = Algorithm.lower_bound(TimeSpanSortedByStartHour[t.siteID],
                     new TimeSpan(-1, t.startHour, -1, -1, -1, false),
@@ -55,12 +61,10 @@ namespace nCov_Patient_Tracer.Strcture
                 {
                     if (t.CompareTo(TimeSpanSortedByStartHour[t.siteID][j]) == 0) continue;
                     if (TimeSpanSortedByStartHour[t.siteID][j].isProtected == true) continue;
-                    if (PersonTable.query(
-                        storage.Persons[TimeSpanSortedByStartHour[t.siteID][j].personID]) == null)
+                    if (hashTable.query(TimeSpanSortedByStartHour[t.siteID][j]) == null)
                     {
-                        PersonTable.insert(
-                            storage.Persons[TimeSpanSortedByStartHour[t.siteID][j].personID]);
-                        arr.append(storage.Persons[TimeSpanSortedByStartHour[t.siteID][j].personID]);
+                        hashTable.insert(TimeSpanSortedByStartHour[t.siteID][j]);
+                        arr[i].append(TimeSpanSortedByStartHour[t.siteID][j]);
                     }
                 }
                 int endHour_s = Algorithm.lower_bound(TimeSpanSortedByEndHour[t.siteID],
@@ -74,24 +78,31 @@ namespace nCov_Patient_Tracer.Strcture
                 {
                     if (t.CompareTo(TimeSpanSortedByEndHour[t.siteID][j]) == 0) continue;
                     if (TimeSpanSortedByEndHour[t.siteID][j].isProtected == true) continue;
-                    if(PersonTable.query(
-                        storage.Persons[TimeSpanSortedByEndHour[t.siteID][j].personID]) == null)
+                    if (hashTable.query(TimeSpanSortedByEndHour[t.siteID][j]) == null)
                     {
-                        PersonTable.insert(
-                            storage.Persons[TimeSpanSortedByEndHour[t.siteID][j].personID]);
-                        arr.append(storage.Persons[TimeSpanSortedByEndHour[t.siteID][j].personID]);
+                        hashTable.insert(TimeSpanSortedByEndHour[t.siteID][j]);
+                        arr[i].append(TimeSpanSortedByEndHour[t.siteID][j]);
+                    }
+                }
+                Vector<TimeSpan> Results_IT = intervalTrees[t.siteID].query(t.startHour);
+                for(int j=0;j< Results_IT.size(); j++)
+                {
+                    if (t.CompareTo(Results_IT[j]) == 0) continue;
+                    if (hashTable.query(Results_IT[j]) == null)
+                    {
+                        hashTable.insert(Results_IT[j]);
+                        arr[i].append(Results_IT[j]);
                     }
                 }
             }
-
             return arr;
         }
 
-        public Vector<Person> queryBruteForce(Person p)
+        public Vector<Vector<TimeSpan>> queryBruteForce(Person p)
         {
-            HashTable<Person> PersonTable = new HashTable<Person>();
-            Vector<Person> result = new Vector<Person>();
-            for(int i = 0; i < p.timeSpanCollection.size(); i++)
+            Vector<Vector<TimeSpan>> result = new Vector<Vector<TimeSpan>>();
+            result.reserve(p.timeSpanCollection.size());
+            for (int i = 0; i < p.timeSpanCollection.size(); i++)
             {
                 TimeSpan t = storage.TimeSpans[p.timeSpanCollection[i]];
                 Vector<TimeSpan> arr = TimeSpanSortedByStartHour[t.siteID];
@@ -100,11 +111,7 @@ namespace nCov_Patient_Tracer.Strcture
                     if (t.InterSection(arr[j]))
                     {
                         if (storage.Persons[arr[j].personID].CompareTo(p) == 0) continue;
-                        if (PersonTable.query(storage.Persons[arr[j].personID]) == null)
-                        {
-                            PersonTable.insert(storage.Persons[arr[j].personID]);
-                            result.append(storage.Persons[arr[j].personID]);
-                        }
+                        result[i].append(arr[j]);
                     }
                 }
             }

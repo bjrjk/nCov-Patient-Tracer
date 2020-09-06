@@ -27,7 +27,7 @@
                 <MenuItem x:Name="btnEditPerson" Header="人员信息" Click="btnEditPerson_Click"/>
                 <MenuItem x:Name="btnEditTimeSpan" Header="人员到访时间段" Click="btnEditTimeSpan_Click"/>
             </MenuItem>
-            <MenuItem Header="工具" Height="{Binding ActualHeight, ElementName=menu, Mode=OneWay}">
+            <MenuItem Header="工具" Height="{Binding ActualHeight, ElementName=menu, Mode=OneWay}" IsEnabled="False">
                 <MenuItem x:Name="btnGenData" Header="数据生成器" Click="btnGenData_Click" />
                 <MenuItem x:Name="btnVerifyData" Header="数据校验器" Click="btnVerifyData_Click"/>
                 <MenuItem x:Name="btnViewResult" Header="结果查看器" Click="btnViewResult_Click"/>
@@ -47,11 +47,12 @@
             <Button x:Name="btnPrepare" Content="处理数据" Click="btnPrepare_Click" VerticalAlignment="Center" HorizontalAlignment="Center" Height="50" Width="100" />
             <ProgressBar x:Name="progress"  Grid.Row="1" Height="25" Value="0" />
             <Label Content="全部人员列表：" Grid.Row="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <ListBox x:Name="lstPeople" Grid.Row="3" IsEnabled="False" ScrollViewer.CanContentScroll="True">
-                
+            <ListBox x:Name="lstPeople" Grid.Row="3" IsEnabled="False" ScrollViewer.CanContentScroll="True" SelectionMode="Extended">
+
             </ListBox>
-            <Button x:Name="btnQuery" Content="查询结果" Grid.Row="4" IsEnabled="False" Click="btnQuery_Click" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Height="50"/>
-           
+            <Button x:Name="btnQuery" Content="查询追踪结果" Grid.Row="4" IsEnabled="False" Click="btnQuery_Click" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Height="50"/>
+            <Button x:Name="btnSave" Content="保存追踪结果" Grid.Row="5" IsEnabled="False" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Height="50" Margin="0" Click="btnSave_Click"/>
+
         </Grid>
         <cefSharpWPF:ChromiumWebBrowser x:Name="web"  Grid.Row="1" Grid.Column="1" Address="https://www.baidu.com/"/>
     </Grid>
