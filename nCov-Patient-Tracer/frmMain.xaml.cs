@@ -120,17 +120,18 @@ namespace nCov_Patient_Tracer
             storage.personIncCnt = PeopleNumber;
             storage.siteIncCnt = SiteNumber;
             storage.timespanIncCnt = PeopleNumber * SiteNumber;
+            Random ra = new Random();
             for (int i = 0; i < PeopleNumber; i++)
             {
                 Person p = new Person(i, "测试人员" + i.ToString(),
-                    "", "", "");
+                    "测试公司"+ra.Next(0,100).ToString(), "测试地址"+ra.Next(0,100).ToString(), ra.Next(10000000,1999999999).ToString());
                 storage.Persons.append(p);
                 for (int j = 0; j < SiteNumber; j++)
                 {
                     p.timeSpanCollection.append(i * SiteNumber + j);
                 }
             }
-            Random ra = new Random();
+            
             for (int i = 0; i < SiteNumber; i++)
             {
                 Site s = new Site(i, new Coordinate(
@@ -259,7 +260,7 @@ namespace nCov_Patient_Tracer
                 personArr.append(p);
                 Vector<Vector<Strcture.TimeSpan>> arr = Global.processedStorage.query(p);
                 timeSpanArr.append(arr);
-                s += "<center>";
+                
                 s += "<h1>查询“" + p.name + "”的密切接触者信息</h1><br>";
                 int totalNumber = 0;
                 for (int i = 0; i < arr.size(); i++)
@@ -269,16 +270,23 @@ namespace nCov_Patient_Tracer
                     s += "本人停留时间：" + Global.storage.TimeSpans[p.timeSpanCollection[i]].startHour.ToString() +
                         "小时至" + Global.storage.TimeSpans[p.timeSpanCollection[i]].endHour.ToString() + "小时<br>";
                     s += "密切接触者信息：<br>";
+                    s += "<table class=\"table\"><thead><tr><th>姓名</th><th>停留时间</th><th>公司</th><th>地址</th><th>手机号</th></tr></thead><tbody>";
                     for (int j = 0; j < arr[i].size(); j++)
                     {
                         totalNumber++;
-                        s += "姓名：" + Global.storage.Persons[arr[i][j].personID].name + "<br>";
-                        s += "停留时间：" + arr[i][j].startHour.ToString() + "小时至" + arr[i][j].endHour.ToString() + "小时<br>";
+                        s += "<tr>";
+                        s += "<th>" + Global.storage.Persons[arr[i][j].personID].name + "</th>";
+                        s += "<th>" + arr[i][j].startHour.ToString() + "小时至" + arr[i][j].endHour.ToString() + "小时</th>";
+                        s += "<th>" + Global.storage.Persons[arr[i][j].personID].company + "</th>";
+                        s += "<th>" + Global.storage.Persons[arr[i][j].personID].address + "</th>";
+                        s += "<th>" + Global.storage.Persons[arr[i][j].personID].telephone + "</th>";
+                        s += "</tr>";
                     }
+                    s += "</tbody></table>";
                 }
                 if (totalNumber == 0)
                     s += "<strong>没有任何密切接触者！</strong>";
-                s += "</center>";
+         
             }
             showDebugInformationInWeb(s);
             DisplayResultFrm = new frmDisplayResult();

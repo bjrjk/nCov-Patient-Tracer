@@ -27,7 +27,7 @@
                 <MenuItem x:Name="btnEditPerson" Header="人员信息" Click="btnEditPerson_Click"/>
                 <MenuItem x:Name="btnEditTimeSpan" Header="人员到访时间段" Click="btnEditTimeSpan_Click"/>
             </MenuItem>
-            <MenuItem Header="工具" Height="{Binding ActualHeight, ElementName=menu, Mode=OneWay}" IsEnabled="False">
+            <MenuItem Header="工具" Height="{Binding ActualHeight, ElementName=menu, Mode=OneWay}">
                 <MenuItem x:Name="btnGenData" Header="数据生成器" Click="btnGenData_Click" />
                 <MenuItem x:Name="btnVerifyData" Header="数据校验器" Click="btnVerifyData_Click"/>
                 <MenuItem x:Name="btnViewResult" Header="结果查看器" Click="btnViewResult_Click"/>

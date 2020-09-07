@@ -101,9 +101,13 @@ namespace nCov_Patient_Tracer.Forms
             mapDrawCircle("red", "blue", c);
             string content = "";
             content += "密切接触者信息：<br>";
+            content += "姓名，公司，地址，手机号<br>";
             for (int i = 0; i < Global.timeSpanArr[personID][siteID].size(); i++)
             {
-                content += "姓名：" + Global.storage.Persons[Global.timeSpanArr[personID][siteID][i].personID].name + "<br>";
+                content += Global.storage.Persons[Global.timeSpanArr[personID][siteID][i].personID].name + "，";
+                content += Global.storage.Persons[Global.timeSpanArr[personID][siteID][i].personID].company + "，";
+                content += Global.storage.Persons[Global.timeSpanArr[personID][siteID][i].personID].address + "，";
+                content += Global.storage.Persons[Global.timeSpanArr[personID][siteID][i].personID].telephone + "<br>";
             }
             mapCreateInfoWindow("<strong>查询“" + p.name + "”在“" + s.name + "”处的密切接触者信息</strong>",
                 content, c);
