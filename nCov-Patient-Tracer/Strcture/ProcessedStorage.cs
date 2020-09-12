@@ -88,6 +88,7 @@ namespace nCov_Patient_Tracer.Strcture
                 for(int j=0;j< Results_IT.size(); j++)
                 {
                     if (t.CompareTo(Results_IT[j]) == 0) continue;
+                    if (Results_IT[j].isProtected) continue;
                     if (hashTable.query(Results_IT[j]) == null)
                     {
                         hashTable.insert(Results_IT[j]);
@@ -111,6 +112,7 @@ namespace nCov_Patient_Tracer.Strcture
                     if (t.InterSection(arr[j]))
                     {
                         if (storage.Persons[arr[j].personID].CompareTo(p) == 0) continue;
+                        if (arr[j].isProtected) continue;
                         result[i].append(arr[j]);
                     }
                 }

@@ -20,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.VisualBasic;
 using TimeSpan = nCov_Patient_Tracer.Strcture.TimeSpan;
 
 namespace nCov_Patient_Tracer
@@ -113,7 +114,9 @@ namespace nCov_Patient_Tracer
 
         private void btnGenData_Click(object sender, RoutedEventArgs e)
         {
-            const int PeopleNumber = 50, SiteNumber = 20;
+            int PeopleNumber = int.Parse(Interaction.InputBox("请输入随机生成的人员数目：", "数据生成器", "50"));
+            int SiteNumber = int.Parse(Interaction.InputBox("请输入随机生成的地点数目：", "数据生成器", "20"));
+            double protectPobability = double.Parse(Interaction.InputBox("请输入防护概率（0-1之间的小数，0为全都不防护，1为全都防护）：", "数据生成器", "0.5"));
             Global.configPath = null;
             Global.storage = new Storage();
             Storage storage = Global.storage;
@@ -150,7 +153,7 @@ namespace nCov_Patient_Tracer
                 int t1 = ra.Next(0, 100), t2 = ra.Next(0, 100);
                 double t3 = ra.NextDouble();
                 Strcture.TimeSpan t = new Strcture.TimeSpan(i,
-                    Math.Min(t1, t2), Math.Max(t1, t2), i / SiteNumber, i % SiteNumber, t3 > 0.5);
+                    Math.Min(t1, t2), Math.Max(t1, t2), i / SiteNumber, i % SiteNumber, t3 < protectPobability);
                 storage.TimeSpans.append(t);
             }
             MessageBox.Show("随机生成成功！", "提示信息");
@@ -249,7 +252,7 @@ namespace nCov_Patient_Tracer
                 MessageBox.Show("您未选中任何一人进行追踪！", "提示信息");
                 return;
             }
-            string s = "";
+            string s = "<p>风险等级标准：低风险地区（绿色），密切接触者小于等于2人；中风险地区（黄色），密切接触者在3人到10人之间；高风险地区（红色），密切接触者大于10人。</p>";
             Vector<Person> personArr = new Vector<Person>();
             Global.personArr = personArr;
             Vector<Vector<Vector<TimeSpan>>> timeSpanArr = new Vector<Vector<Vector<TimeSpan>>>();
@@ -265,8 +268,9 @@ namespace nCov_Patient_Tracer
                 int totalNumber = 0;
                 for (int i = 0; i < arr.size(); i++)
                 {
+
                     if (arr[i].size() == 0) continue;
-                    s += "<strong>在地点“" + Global.storage.Sites[arr[i][0].siteID].name + "”：</strong><br>";
+                    s += "在地点“<strong style=\"color: " + Site.getRiskLevel(arr[i].size()) +"\">" + Global.storage.Sites[arr[i][0].siteID].name + "</strong>”：<br>";
                     s += "本人停留时间：" + Global.storage.TimeSpans[p.timeSpanCollection[i]].startHour.ToString() +
                         "小时至" + Global.storage.TimeSpans[p.timeSpanCollection[i]].endHour.ToString() + "小时<br>";
                     s += "密切接触者信息：<br>";

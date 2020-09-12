@@ -35,6 +35,25 @@ namespace nCov_Patient_Tracer.Forms
             {
                 txtNames.Text += Global.personArr[i].name + " ";
             }
+            bool flag = false;
+            for(int i = 0; i < Global.timeSpanArr.size(); i++)
+            {
+                for(int j = 0; j < Global.timeSpanArr[i].size(); j++)
+                {
+                    if (Global.timeSpanArr[i][j].size() != 0)
+                    {
+                        flag = true;
+                        break;
+                    }
+                }
+               
+            }
+            if (!flag)
+            {
+                MessageBox.Show("没有任何密切接触者信息！", "密接追踪器");
+                btnNext.IsEnabled = false;
+                btnPrevious.IsEnabled = false;
+            }
         }
         private void executeJavaScript(string s)
         {
@@ -155,6 +174,7 @@ namespace nCov_Patient_Tracer.Forms
         {
             if (queried) QueryIDMinus();
             queried = true;
+            
             while (Global.timeSpanArr[personID][siteID].size() == 0) QueryIDMinus();
             LoadNewSite(personID, siteID);
         }

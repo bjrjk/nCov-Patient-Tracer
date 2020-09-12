@@ -46,5 +46,11 @@ namespace nCov_Patient_Tracer.Strcture
             writer.Write(name);
             VectorHelper.writeInts(writer, timeSpanCollection);
         }
+        public static string getRiskLevel(int peopleNumber)
+        {
+            if (peopleNumber <= 2) return "green";
+            else if (peopleNumber <= 10) return "yellow";
+            else return "red";
+        }
     }
 }

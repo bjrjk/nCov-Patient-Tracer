@@ -18,6 +18,13 @@ namespace nCov_Patient_Tracer.Tests
                 return x.CompareTo(y);
             }
         }
+        private class ObjectComparer : IComparer<Object>
+        {
+            public int Compare(Object x, Object y)
+            {
+                return x.GetHashCode().CompareTo(y.GetHashCode());
+            }
+        }
         private static bool testQSort()
         {
             const int itemNum = 1000;
