@@ -117,7 +117,8 @@ namespace nCov_Patient_Tracer.Forms
             Coordinate c = s.coordinate;
             mapCenterAndZoom(c);
             mapMark(c);
-            mapDrawCircle("red", "blue", c);
+            string status = Site.getRiskLevel(Global.timeSpanArr[personID][siteID].size());
+            mapDrawCircle(status, status, c);
             string content = "";
             content += "密切接触者信息：<br>";
             content += "姓名，公司，地址，手机号<br>";
