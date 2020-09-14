@@ -69,5 +69,19 @@ namespace nCov_Patient_Tracer.DSA
             if (comparer.Compare(v, arr[l]) < 0) return l;
             else return arr.size();
         }
+        public static bool IsInt(string str)
+        {
+            int vsNum;
+            bool isNum;
+            isNum = int.TryParse(str, out vsNum);
+            return isNum;
+        }
+        public static bool IsDouble(string str)
+        {
+            double vsNum;
+            bool isNum;
+            isNum = double.TryParse(str, out vsNum);
+            return isNum;
+        }
     }
 }

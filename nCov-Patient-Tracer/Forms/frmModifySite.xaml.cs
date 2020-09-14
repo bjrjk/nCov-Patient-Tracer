@@ -92,6 +92,16 @@ namespace nCov_Patient_Tracer.Forms
         }
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
+            if (!Algorithm.IsDouble(txtLongitude.Text))
+            {
+                MessageBox.Show("您输入的经度不是浮点数！请重新输入！","提示信息");
+                return;
+            }
+            if (!Algorithm.IsDouble(txtLatitude.Text))
+            {
+                MessageBox.Show("您输入的纬度不是浮点数！请重新输入！", "提示信息");
+                return;
+            }
             Storage storage = Global.storage;
             if (lstLocations.SelectedItems.Count == 0)
             {

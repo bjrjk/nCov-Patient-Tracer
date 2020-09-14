@@ -31,6 +31,26 @@ namespace nCov_Patient_Tracer.Forms
         }
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
+            if (!Algorithm.IsInt(txtStartHour.Text))
+            {
+                MessageBox.Show("输入的开始时间不是数字！请核对后重试！", "提示信息");
+                return;
+            }
+            if (!Algorithm.IsInt(txtEndHour.Text))
+            {
+                MessageBox.Show("输入的结束时间不是数字！请核对后重试！", "提示信息");
+                return;
+            }
+            if (!Algorithm.IsInt(txtPersonID.Text))
+            {
+                MessageBox.Show("输入的人员ID不是数字！请核对后重试！", "提示信息");
+                return;
+            }
+            if (!Algorithm.IsInt(txtSiteID.Text))
+            {
+                MessageBox.Show("输入的地点ID不是数字！请核对后重试！", "提示信息");
+                return;
+            }
             Storage storage = Global.storage;
             if (int.Parse(txtPersonID.Text) >= storage.Persons.size())
             {
