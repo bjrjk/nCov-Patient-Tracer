@@ -262,6 +262,20 @@ namespace nCov_Patient_Tracer
                 Person p = (Person)(((ListBoxItem)lstPeople.SelectedItems[k]).DataContext);
                 personArr.append(p);
                 Vector<Vector<Strcture.TimeSpan>> arr = Global.processedStorage.query(p);
+                /*DEBUG BEGIN
+                Vector<Vector<Strcture.TimeSpan>> arrBF = Global.processedStorage.queryBruteForce(p);
+                Debug.Assert(arr.size() == arrBF.size());
+                for(int i = 0; i < arr.size(); i++)
+                {
+                    Algorithm.quickSort(arr[i], new TimeSpanComparerByContent());
+                    Algorithm.quickSort(arrBF[i], new TimeSpanComparerByContent());
+                    for(int j = 0; j < arr[i].size(); j++)
+                    {
+                        if (!object.ReferenceEquals(arr[i][j], arrBF[i][j]))
+                            Debug.Assert(false);
+                    }
+                }
+                DEBUG END*/
                 timeSpanArr.append(arr);
                 
                 s += "<h1>查询“" + p.name + "”的密切接触者信息</h1><br>";

@@ -14,9 +14,25 @@ namespace nCov_Patient_Tracer.Strcture
         public Vector<Vector<TimeSpan>> TimeSpanSortedByStartHour;
         public Vector<Vector<TimeSpan>> TimeSpanSortedByEndHour;
         public Vector<IntervalTree<TimeSpan>> intervalTrees;
+        private class TimeSpanIndexSortByStartTime : IComparer<int>
+        {
+            public int Compare(int x, int y)
+            {
+                return Global.storage.TimeSpans[x].startHour.CompareTo(
+                    Global.storage.TimeSpans[y].startHour);
+            }
+        }
         public ProcessedStorage(Storage s)
         {
             storage = s;
+            for(int i = 0; i < s.Persons.size(); i++) //给每个人的TimeSpan按起始时间排序
+            {
+                for(int j = 0; j < s.Persons[i].timeSpanCollection.size(); j++)
+                {
+                    Vector<int> vTS = s.Persons[i].timeSpanCollection;
+                    Algorithm.quickSort(vTS, new TimeSpanIndexSortByStartTime());
+                }
+            }
             Vector<TimeSpan> TimeSpanRef = s.TimeSpans;
             TimeSpanSortedByStartHour = new Vector<Vector<TimeSpan>>();
             TimeSpanSortedByStartHour.reserve(s.Sites.size());
@@ -107,6 +123,7 @@ namespace nCov_Patient_Tracer.Strcture
             {
                 TimeSpan t = storage.TimeSpans[p.timeSpanCollection[i]];
                 Vector<TimeSpan> arr = TimeSpanSortedByStartHour[t.siteID];
+                result[i] = new Vector<TimeSpan>();
                 for(int j = 0; j < arr.size(); j++)
                 {
                     if (t.InterSection(arr[j]))
