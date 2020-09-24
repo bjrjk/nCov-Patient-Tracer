@@ -97,16 +97,6 @@ namespace nCov_Patient_Tracer.Forms
                 map.addOverlay(circle);
             ", coordinate.longitude, coordinate.latitude, strokeColor, fillColor));
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Random ra = new Random();
-            Coordinate c = new Coordinate(116 + ra.NextDouble(), 40 + ra.NextDouble());
-            mapClearOverlay();
-            mapCenterAndZoom(c);
-            mapMark(c);
-            mapDrawCircle("red", "blue", c);
-            mapCreateInfoWindow("高风险地区", "请勿进入！", c);
-        }
         private void LoadNewSite(int personID, int siteID)
         {
 

@@ -32,9 +32,6 @@ namespace nCov_Patient_Tracer.Forms
             }
             public void OnFrameLoadEnd(object sender, FrameLoadEndEventArgs e)
             {
-                if (e.Frame.IsMain)
-                {
-                }
             }
 
             public void transmit(string str)
