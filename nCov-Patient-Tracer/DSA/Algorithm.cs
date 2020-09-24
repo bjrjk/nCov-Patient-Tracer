@@ -14,8 +14,8 @@ namespace nCov_Patient_Tracer.DSA
             v1 = v2;
             v2 = tmp;
         }
-        private static int quickSort_partition<T, C>(Vector<T> arr, int l, int r, C comparer)
-           where C : IComparer<T>
+        private static int quickSort_partition<T, C>(Vector<T> arr, int l, int r, C comparer) //快速排序——分区函数
+           where C : IComparer<T> //C是泛型T的比较器类型
         {
             T pivot = arr[r];
             while (l != r)
@@ -28,7 +28,7 @@ namespace nCov_Patient_Tracer.DSA
             arr[l] = pivot;
             return l;
         }
-        public static void quickSort<T, C>(Vector<T> arr, int l, int r, C comparer)
+        public static void quickSort<T, C>(Vector<T> arr, int l, int r, C comparer) //快速排序——递归
             where C : IComparer<T>
         {
             if (r <= l) return;
@@ -38,13 +38,13 @@ namespace nCov_Patient_Tracer.DSA
             quickSort(arr, l, pivot - 1, comparer);
             quickSort(arr, pivot + 1, r, comparer);
         }
-        public static void quickSort<T, C>(Vector<T> arr, C comparer)
+        public static void quickSort<T, C>(Vector<T> arr, C comparer) //快速排序——整个数组
              where C : IComparer<T>
         {
             quickSort(arr, 0, arr.size() - 1, comparer);
         }
         public static int lower_bound<T, C>(Vector<T> arr, T v, C comparer)
-             where C : IComparer<T>
+             where C : IComparer<T> //C是泛型T的比较器类型
         {
             int l = 0, r = arr.size() - 1, mid;
             while (l < r)
