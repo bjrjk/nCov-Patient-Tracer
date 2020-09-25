@@ -29,6 +29,7 @@
             </MenuItem>
             <MenuItem Header="工具" Height="{Binding ActualHeight, ElementName=menu, Mode=OneWay}">
                 <MenuItem x:Name="btnGenData" Header="数据生成器" Click="btnGenData_Click" />
+                <MenuItem x:Name="btnGenData2" Header="数据生成器2" Click="btnGenData2_Click" />
                 <MenuItem x:Name="btnVerifyData" Header="数据校验器" Click="btnVerifyData_Click"/>
                 <MenuItem x:Name="btnViewResult" Header="结果查看器" Click="btnViewResult_Click"/>
             </MenuItem>

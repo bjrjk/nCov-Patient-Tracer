@@ -57,7 +57,7 @@ namespace nCov_Patient_Tracer.Forms
         }
         private void executeJavaScript(string s)
         {
-            web.ExecuteScriptAsync(s);
+            if (web.CanExecuteJavascriptInMainFrame) web.ExecuteScriptAsync(s);
         }
         private void mapClearOverlay()
         {

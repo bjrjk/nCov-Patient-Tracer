@@ -68,6 +68,10 @@ namespace nCov_Patient_Tracer.Forms
             CreateSiteGUI();
         }
 
+        public void executeJavaScript(string s)
+        {
+            if(web.CanExecuteJavascriptInMainFrame)web.ExecuteScriptAsync(s);
+        }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
         }
@@ -78,7 +82,7 @@ namespace nCov_Patient_Tracer.Forms
         }
         private void LocateOnMap()
         {
-            web.ExecuteScriptAsync(String.Format(@"
+            executeJavaScript(String.Format(@"
                 map.clearOverlays();
                 var p = new BMap.Point({0}, {1});
                 map.centerAndZoom(p, 14);
