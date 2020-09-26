@@ -376,7 +376,7 @@ namespace nCov_Patient_Tracer
                     curPersonHour[i % PeopleNumber], curPersonHour[i % PeopleNumber] + t1,
                     i % PeopleNumber, i / PeopleNumber, t3 < protectPobability);
                 storage.TimeSpans.append(t);
-                curPersonHour[i % PeopleNumber] += t1;
+                curPersonHour[i % PeopleNumber] += t1 + 1;
             }
             MessageBox.Show("随机生成成功！", "提示信息");
         }

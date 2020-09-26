@@ -50,8 +50,10 @@ namespace nCov_Patient_Tracer.DSA
             while (l < r)
             {
                 mid = (l + r) / 2;
+                //若arr[mid] < v，要将查找范围缩小到右侧子序列，这时候候选位置可能是右边子序列的第一个
                 if (comparer.Compare(arr[mid], v) < 0) l = mid + 1;
-                else r = mid;
+                //若arr[mid] >= v，要将查找范围缩小到左侧子序列，但有可能arr[mid]处就是最终位置，所以r的位置不做微调，仍然包含在查找范围内
+                else r = mid; 
             }
             if (comparer.Compare(v, arr[l]) <= 0) return l;
             else return arr.size();
@@ -63,7 +65,9 @@ namespace nCov_Patient_Tracer.DSA
             while (l < r)
             {
                 mid = (l + r) / 2;
+                //若arr[mid] <= v，要将查找范围缩小到右侧子序列，这时候候选位置可能是右边子序列的第一个
                 if (comparer.Compare(arr[mid], v) <= 0) l = mid + 1;
+                //若arr[mid] > v，要将查找范围缩小到左侧子序列，但有可能arr[mid]处就是最终位置，所以r的位置不做微调，仍然包含在查找范围内
                 else r = mid;
             }
             if (comparer.Compare(v, arr[l]) < 0) return l;
