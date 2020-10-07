@@ -18,15 +18,12 @@ using TimeSpan = nCov_Patient_Tracer.Strcture.TimeSpan;
 
 namespace nCov_Patient_Tracer.Forms
 {
-    /// <summary>
-    /// frmDisplayResult.xaml 的交互逻辑
-    /// </summary>
     public partial class frmDisplayResult : Window
     {
         int personID = 0;
         int siteID = 0;
         static bool queried = false;
-        public frmDisplayResult()
+        public frmDisplayResult() //窗体构造函数
         {
             InitializeComponent();
             web.Address = Global.WebURL + "displaymotion.php";
@@ -46,7 +43,6 @@ namespace nCov_Patient_Tracer.Forms
                         break;
                     }
                 }
-               
             }
             if (!flag)
             {
@@ -55,15 +51,15 @@ namespace nCov_Patient_Tracer.Forms
                 btnPrevious.IsEnabled = false;
             }
         }
-        private void executeJavaScript(string s)
+        private void executeJavaScript(string s) //CefSharp执行Javascript函数
         {
             if (web.CanExecuteJavascriptInMainFrame) web.ExecuteScriptAsync(s);
         }
-        private void mapClearOverlay()
+        private void mapClearOverlay() //百度地图：清除覆盖物
         {
             executeJavaScript("map.clearOverlays();");
         }
-        private void mapCreateInfoWindow(string title, string content, Coordinate coordinate)
+        private void mapCreateInfoWindow(string title, string content, Coordinate coordinate) //百度地图：创建信息窗口
         {
             executeJavaScript(String.Format(@"
                 var point = new BMap.Point({0},{1});
@@ -74,14 +70,14 @@ namespace nCov_Patient_Tracer.Forms
                 map.openInfoWindow(infoWindow, point);
             ", coordinate.longitude, coordinate.latitude, title, content));
         }
-        private void mapCenterAndZoom(Coordinate coordinate)
+        private void mapCenterAndZoom(Coordinate coordinate) //百度地图：聚焦地点
         {
             executeJavaScript(String.Format(@"
                 var point = new BMap.Point({0},{1});
                 map.centerAndZoom(point, 15);
             ", coordinate.longitude, coordinate.latitude));
         }
-        private void mapMark(Coordinate coordinate)
+        private void mapMark(Coordinate coordinate) //百度地图：建立标记
         {
             executeJavaScript(String.Format(@"
                 var point = new BMap.Point({0},{1});
@@ -89,7 +85,7 @@ namespace nCov_Patient_Tracer.Forms
                 map.addOverlay(marker);
             ", coordinate.longitude, coordinate.latitude));
         }
-        private void mapDrawCircle(string strokeColor, string fillColor, Coordinate coordinate)
+        private void mapDrawCircle(string strokeColor, string fillColor, Coordinate coordinate) //百度地图：在指定坐标画实心圆
         {
             executeJavaScript(String.Format(@"
                 var point = new BMap.Point({0},{1});
@@ -97,9 +93,8 @@ namespace nCov_Patient_Tracer.Forms
                 map.addOverlay(circle);
             ", coordinate.longitude, coordinate.latitude, strokeColor, fillColor));
         }
-        private void LoadNewSite(int personID, int siteID)
+        private void LoadNewSite(int personID, int siteID) //向窗体GUI中填充新的地点
         {
-
             TimeSpan t = Global.timeSpanArr[personID][siteID][0];
             Person p = Global.personArr[personID];
             mapClearOverlay();
@@ -126,7 +121,7 @@ namespace nCov_Patient_Tracer.Forms
                 "地点：" + s.name + System.Environment.NewLine
                 ;
         }
-        private void QueryIDPlus()
+        private void QueryIDPlus() //切换到下一地点
         {
             if (siteID != Global.timeSpanArr[personID].size() - 1)
             {
@@ -141,7 +136,7 @@ namespace nCov_Patient_Tracer.Forms
             }
             else personID = 0;
         }
-        private void QueryIDMinus()
+        private void QueryIDMinus() //切换到上一地点
         {
             if (siteID != 0)
             {
@@ -161,22 +156,20 @@ namespace nCov_Patient_Tracer.Forms
                 return;
             }
         }
-        private void btnPrevious_Click(object sender, RoutedEventArgs e)
+        private void btnPrevious_Click(object sender, RoutedEventArgs e) //btnPrevious的Click事件
         {
             if (queried) QueryIDMinus();
             queried = true;
-            
             while (Global.timeSpanArr[personID][siteID].size() == 0) QueryIDMinus();
             LoadNewSite(personID, siteID);
         }
 
-        private void btnNext_Click(object sender, RoutedEventArgs e)
+        private void btnNext_Click(object sender, RoutedEventArgs e) //btnNext的Click事件
         {
             if (queried) QueryIDPlus();
             queried = true;
             while (Global.timeSpanArr[personID][siteID].size() == 0) QueryIDPlus();
             LoadNewSite(personID, siteID);
-
         }
     }
 }

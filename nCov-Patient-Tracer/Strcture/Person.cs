@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace nCov_Patient_Tracer.Strcture
 {
-    class Person:IComparable<Person>
+    class Person:IComparable<Person> //人员类
     {
-        public int ID;
-        public string name, company, address, telephone;
-        public Vector<int> timeSpanCollection;
+        public int ID; //人员ID
+        public string name, company, address, telephone; //姓名，公司，地址，电话
+        public Vector<int> timeSpanCollection; //当前人员访问某地的全部时间段集合
         public Person(int ID, string name, string company, string address,
             string telephone)
         {
@@ -60,7 +60,7 @@ namespace nCov_Patient_Tracer.Strcture
             return ID.CompareTo(other.ID);
         }
     }
-    class PersonComparerByContent : IComparer<Person>
+    class PersonComparerByContent : IComparer<Person> //人员排序比较器
     {
         public int Compare(Person x, Person y)
         {

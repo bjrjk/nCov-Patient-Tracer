@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace nCov_Patient_Tracer.Strcture
 {
-    class TimeSpan:IComparable<TimeSpan>,ISegment
+    class TimeSpan:IComparable<TimeSpan>,ISegment //时间段类，实现可比较接口和线段接口
     {
-        public int ID;
-        public int startHour, endHour;
-        public int personID, siteID;
-        public bool isProtected;
+        public int ID; //时间段ID
+        public int startHour, endHour; //起始时间，结束时间
+        public int personID, siteID; //时间段对应的人员ID和地点ID
+        public bool isProtected; //是否被保护
         public TimeSpan(int ID, int startHour, int endHour, int personID, int siteID, bool isProtected)
         {
             this.ID = ID;
@@ -76,21 +76,21 @@ namespace nCov_Patient_Tracer.Strcture
             else return -1;
         }
     }
-    class TimeSpanComparerByStartHour : IComparer<TimeSpan>
+    class TimeSpanComparerByStartHour : IComparer<TimeSpan> //时间段排序比较器——按开始时间排序
     {
         public int Compare(TimeSpan x, TimeSpan y)
         {
             return x.startHour.CompareTo(y.startHour);
         }
     }
-    class TimeSpanComparerByEndHour : IComparer<TimeSpan>
+    class TimeSpanComparerByEndHour : IComparer<TimeSpan> //时间段排序比较器——按结束时间排序
     {
         public int Compare(TimeSpan x, TimeSpan y)
         {
             return x.endHour.CompareTo(y.endHour);
         }
     }
-    class TimeSpanComparerByContent : IComparer<TimeSpan>
+    class TimeSpanComparerByContent : IComparer<TimeSpan> //时间段排序比较器——按时间段ID排序
     {
         public int Compare(TimeSpan x, TimeSpan y)
         {

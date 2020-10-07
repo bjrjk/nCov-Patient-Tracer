@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace nCov_Patient_Tracer.Strcture
 {
-    class Coordinate
+    class Coordinate //经纬度坐标类
     {
-        public double longitude, latitude;
+        public double longitude, latitude; //经度，纬度
         public Coordinate(double longitude,double latitude)
         {
             this.longitude = longitude;

@@ -9,10 +9,10 @@ namespace nCov_Patient_Tracer.Strcture
 {
     class Storage
     {
-        public int timespanIncCnt, personIncCnt, siteIncCnt;
-        public Vector<TimeSpan> TimeSpans;
-        public Vector<Person> Persons;
-        public Vector<Site> Sites;
+        public int timespanIncCnt, personIncCnt, siteIncCnt; //时间段总数，人员总数，地点总数
+        public Vector<TimeSpan> TimeSpans; //存储时间段的数组
+        public Vector<Person> Persons; //存储人员的数组
+        public Vector<Site> Sites; //存储地点的数组
         public Storage()
         {
             timespanIncCnt = personIncCnt = siteIncCnt = 0;

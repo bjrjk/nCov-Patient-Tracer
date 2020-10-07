@@ -73,14 +73,14 @@ namespace nCov_Patient_Tracer.DSA
             if (comparer.Compare(v, arr[l]) < 0) return l;
             else return arr.size();
         }
-        public static bool IsInt(string str)
+        public static bool IsInt(string str) //判断str对应的字符串是否能转换为int
         {
             int vsNum;
             bool isNum;
             isNum = int.TryParse(str, out vsNum);
             return isNum;
         }
-        public static bool IsDouble(string str)
+        public static bool IsDouble(string str) //判断str对应的字符串是否能转换为double
         {
             double vsNum;
             bool isNum;
