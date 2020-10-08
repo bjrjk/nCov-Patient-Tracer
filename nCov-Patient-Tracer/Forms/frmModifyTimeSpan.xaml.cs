@@ -18,18 +18,15 @@ using System.Windows.Shapes;
 
 namespace nCov_Patient_Tracer.Forms
 {
-    /// <summary>
-    /// frmModifySite.xaml 的交互逻辑
-    /// </summary>
     public partial class frmModifyTimeSpan : Window
     {
-        public frmModifyTimeSpan()
+        public frmModifyTimeSpan() //构造函数
         {
             InitializeComponent();
             RefreshList();
             CreateTimeSpanGUI();
         }
-        private void btnSubmit_Click(object sender, RoutedEventArgs e)
+        private void btnSubmit_Click(object sender, RoutedEventArgs e) //btnSubmit的Click事件
         {
             if (!Algorithm.IsInt(txtStartHour.Text))
             {
@@ -80,17 +77,17 @@ namespace nCov_Patient_Tracer.Forms
             RefreshList();
             CreateTimeSpanGUI();
         }
-        private void btnCreateNew_Click(object sender, RoutedEventArgs e)
+        private void btnCreateNew_Click(object sender, RoutedEventArgs e) //btnCreateNew的Click事件
         {
             CreateTimeSpanGUI();
         }
-        private void CreateTimeSpanGUI()
+        private void CreateTimeSpanGUI() //变更窗体GUI为新建时间段
         {
             lstPeople.SelectedItem = null;
             ClearTXT();
             txtID.Text = (Global.storage.timespanIncCnt).ToString();
         }
-        private void UpdateTimeSpan(Strcture.TimeSpan t)
+        private void UpdateTimeSpan(Strcture.TimeSpan t) //更新时间段t及对应的数据结构
         {
             Vector<int> PersonTimeSpanArr = Global.storage.Persons[t.personID].timeSpanCollection;
             for(int i=0;i< PersonTimeSpanArr.size(); i++)
@@ -120,7 +117,7 @@ namespace nCov_Patient_Tracer.Forms
             SiteTimeSpanArr = Global.storage.Sites[t.siteID].timeSpanCollection;
             SiteTimeSpanArr.append(t.ID);
         }
-        private void LoadTimeSpan(Strcture.TimeSpan t)
+        private void LoadTimeSpan(Strcture.TimeSpan t) //加载时间段t的信息到GUI窗体中
         {
             txtID.Text = t.ID.ToString();
             txtStartHour.Text = t.startHour.ToString();
@@ -129,7 +126,7 @@ namespace nCov_Patient_Tracer.Forms
             txtSiteID.Text = t.siteID.ToString();
             chkIsProtected.IsChecked = t.isProtected;
         }
-        private void RefreshList()
+        private void RefreshList() //更新时间段列表
         {
             lstPeople.Items.Clear();
             Storage storage = Global.storage;
@@ -147,7 +144,7 @@ namespace nCov_Patient_Tracer.Forms
                 lstPeople.Items.Add(lstItem);
             }
         }
-        private void ClearTXT()
+        private void ClearTXT() //清除GUI窗体中的文本信息
         {
             txtID.Clear();
             txtStartHour.Clear();
@@ -156,7 +153,7 @@ namespace nCov_Patient_Tracer.Forms
             txtSiteID.Clear();
             chkIsProtected.IsChecked = false;
         }
-        private void lstPeople_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void lstPeople_SelectionChanged(object sender, SelectionChangedEventArgs e) //lstPeople的SelectionChanged事件
         {
             if (e.AddedItems.Count != 0)
             {

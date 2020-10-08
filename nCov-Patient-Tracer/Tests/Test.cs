@@ -11,21 +11,21 @@ namespace nCov_Patient_Tracer.Tests
 {
     class Test
     {
-        private class IntComparer : IComparer<int>
+        private class IntComparer : IComparer<int> //int比较器
         {
             public int Compare(int x, int y)
             {
                 return x.CompareTo(y);
             }
         }
-        private class ObjectComparer : IComparer<Object>
+        private class ObjectComparer : IComparer<Object> //object比较器
         {
             public int Compare(Object x, Object y)
             {
                 return x.GetHashCode().CompareTo(y.GetHashCode());
             }
         }
-        private static bool testQSort()
+        private static bool testQSort() //自动测试快速排序
         {
             const int itemNum = 1000;
             Vector<int> v = new Vector<int>();
@@ -41,7 +41,7 @@ namespace nCov_Patient_Tracer.Tests
             }
             return true;
         }
-        private static bool testBinarySearch()
+        private static bool testBinarySearch() //测试二分搜索
         {
             const int itemNum = 1000;
             Vector<int> v = new Vector<int>();

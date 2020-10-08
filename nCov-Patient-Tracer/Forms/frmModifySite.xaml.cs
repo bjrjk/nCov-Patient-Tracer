@@ -18,15 +18,12 @@ using System.Windows.Shapes;
 
 namespace nCov_Patient_Tracer.Forms
 {
-    /// <summary>
-    /// frmModifySite.xaml 的交互逻辑
-    /// </summary>
     public partial class frmModifySite : Window
     {
-        private class WebCallBack
+        private class WebCallBack //JavaScript的C#回调类
         {
             public frmModifySite frm;
-            public WebCallBack(frmModifySite frm)
+            public WebCallBack(frmModifySite frm) //构造函数，需要传主窗体引用进来
             {
                 this.frm = frm;
             }
@@ -34,7 +31,7 @@ namespace nCov_Patient_Tracer.Forms
             {
             }
 
-            public void transmit(string str)
+            public void transmit(string str) //JavaScript调用C#的回调函数，传入坐标
             {
                 string[] arr=str.Split();
                 frm.txtLongitude.Dispatcher.Invoke(
@@ -55,7 +52,7 @@ namespace nCov_Patient_Tracer.Forms
                     );
             }
         }
-        public frmModifySite()
+        public frmModifySite() //主窗体构造函数
         {
             InitializeComponent();
             web.Address = Global.WebURL + "coordinate.php";
@@ -68,7 +65,7 @@ namespace nCov_Patient_Tracer.Forms
             CreateSiteGUI();
         }
 
-        public void executeJavaScript(string s)
+        public void executeJavaScript(string s) //在浏览器中执行JavaScript
         {
             if(web.CanExecuteJavascriptInMainFrame)web.ExecuteScriptAsync(s);
         }
@@ -76,11 +73,11 @@ namespace nCov_Patient_Tracer.Forms
         {
         }
 
-        private void btnLocate_Click(object sender, RoutedEventArgs e)
+        private void btnLocate_Click(object sender, RoutedEventArgs e) //btnLocate的Click事件
         {
             LocateOnMap();
         }
-        private void LocateOnMap()
+        private void LocateOnMap() //根据GUI中的坐标在百度地图中定位
         {
             executeJavaScript(String.Format(@"
                 map.clearOverlays();
@@ -91,7 +88,7 @@ namespace nCov_Patient_Tracer.Forms
                 marker.setAnimation(BMAP_ANIMATION_BOUNCE);
             ", txtLongitude.Text, txtLatitude.Text));
         }
-        private void btnSubmit_Click(object sender, RoutedEventArgs e)
+        private void btnSubmit_Click(object sender, RoutedEventArgs e) //btnSubmit的Click事件
         {
             if (!Algorithm.IsDouble(txtLongitude.Text))
             {
@@ -121,24 +118,24 @@ namespace nCov_Patient_Tracer.Forms
             CreateSiteGUI();
         }
 
-        private void btnCreateNew_Click(object sender, RoutedEventArgs e)
+        private void btnCreateNew_Click(object sender, RoutedEventArgs e) //btnCreateNew的Click事件
         {
             CreateSiteGUI();
         }
-        private void CreateSiteGUI()
+        private void CreateSiteGUI() //更新界面GUI到添加新地点
         {
             lstLocations.SelectedItem = null ;
             ClearTXT();
             txtID.Text = (Global.storage.siteIncCnt).ToString();
         }
-        private void UpdateSite(Site site)
+        private void UpdateSite(Site site) //用GUI信息去更新site中的值
         {
             site.coordinate.longitude = double.Parse(txtLongitude.Text);
             site.coordinate.latitude = double.Parse(txtLatitude.Text);
             site.name = txtName.Text;
             site.timeSpanCollection = VectorHelper.Str2IntVector(txtTimeSpanID.Text);
         }
-        private void LoadSite(Site site)
+        private void LoadSite(Site site) //加载site中的信息到窗体GUI中
         {
             txtID.Text = site.ID.ToString();
             txtLongitude.Text = site.coordinate.longitude.ToString();
@@ -147,7 +144,7 @@ namespace nCov_Patient_Tracer.Forms
             txtTimeSpanID.Text = VectorHelper.IntVector2Str(site.timeSpanCollection);
         }
 
-        private void RefreshList()
+        private void RefreshList() //更新地点列表
         {
             lstLocations.Items.Clear();
             Storage storage = Global.storage;
@@ -160,7 +157,7 @@ namespace nCov_Patient_Tracer.Forms
                 lstLocations.Items.Add(lstItem);
             }
         }
-        private void ClearTXT()
+        private void ClearTXT() //清除GUI中文本信息
         {
             txtID.Clear();
             txtName.Clear();
@@ -169,7 +166,7 @@ namespace nCov_Patient_Tracer.Forms
             txtTimeSpanID.Clear();
         }
         
-        private void lstLocations_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void lstLocations_SelectionChanged(object sender, SelectionChangedEventArgs e) //lstLocations的SelectionChanged事件
         {
             if (e.AddedItems.Count != 0)
             {

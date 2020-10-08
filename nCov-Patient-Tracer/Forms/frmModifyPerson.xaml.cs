@@ -18,18 +18,15 @@ using System.Windows.Shapes;
 
 namespace nCov_Patient_Tracer.Forms
 {
-    /// <summary>
-    /// frmModifySite.xaml 的交互逻辑
-    /// </summary>
     public partial class frmModifyPerson : Window
     {
-        public frmModifyPerson()
+        public frmModifyPerson() //构造函数
         {
             InitializeComponent();
             RefreshList();
             CreatePersonGUI();
         }
-        private void btnSubmit_Click(object sender, RoutedEventArgs e)
+        private void btnSubmit_Click(object sender, RoutedEventArgs e) //btnSubmit的Click事件
         {
             Storage storage = Global.storage;
             if (lstPeople.SelectedItems.Count == 0)
@@ -48,17 +45,17 @@ namespace nCov_Patient_Tracer.Forms
             CreatePersonGUI();
         }
 
-        private void btnCreateNew_Click(object sender, RoutedEventArgs e)
+        private void btnCreateNew_Click(object sender, RoutedEventArgs e) //btnCreateNew的Click事件
         {
             CreatePersonGUI();
         }
-        private void CreatePersonGUI()
+        private void CreatePersonGUI() //刷新窗体GUI为新建人员状态
         {
             lstPeople.SelectedItem = null;
             ClearTXT();
             txtID.Text = (Global.storage.personIncCnt).ToString();
         }
-        private void UpdatePerson(Person p)
+        private void UpdatePerson(Person p) //从GUI取信息更新人员p
         {
             p.name = txtName.Text;
             p.company = txtCompany.Text;
@@ -66,7 +63,7 @@ namespace nCov_Patient_Tracer.Forms
             p.telephone = txtTelephone.Text;
             p.timeSpanCollection = VectorHelper.Str2IntVector(txtTimeSpanID.Text);
         }
-        private void LoadPerson(Person p)
+        private void LoadPerson(Person p) //从人员p取信息加载到GUI
         {
             txtID.Text = p.ID.ToString();
             txtName.Text = p.name;
@@ -75,7 +72,7 @@ namespace nCov_Patient_Tracer.Forms
             txtTelephone.Text = p.telephone;
             txtTimeSpanID.Text = VectorHelper.IntVector2Str(p.timeSpanCollection);
         }
-        private void RefreshList()
+        private void RefreshList() //更新人员列表
         {
             lstPeople.Items.Clear();
             Storage storage = Global.storage;
@@ -88,7 +85,7 @@ namespace nCov_Patient_Tracer.Forms
                 lstPeople.Items.Add(lstItem);
             }
         }
-        private void ClearTXT()
+        private void ClearTXT() //清除窗体文本信息
         {
             txtID.Clear();
             txtName.Clear();
@@ -98,7 +95,7 @@ namespace nCov_Patient_Tracer.Forms
             txtTimeSpanID.Clear();
         }
         
-        private void lstPeople_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void lstPeople_SelectionChanged(object sender, SelectionChangedEventArgs e) //lstPeople的SelectionChanged事件
         {
             if (e.AddedItems.Count != 0)
             {

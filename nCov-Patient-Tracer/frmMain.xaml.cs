@@ -25,36 +25,34 @@ using TimeSpan = nCov_Patient_Tracer.Strcture.TimeSpan;
 
 namespace nCov_Patient_Tracer
 {
-    /// <summary>
-    /// MainWindow.xaml 的交互逻辑
-    /// </summary>
     public partial class MainWindow : Window
     {
+        //对四个子窗体的引用
         frmModifySite ModifySiteFrm;
         frmModifyPerson ModifyPersonFrm;
         frmModifyTimeSpan ModifyTimeSpanFrm;
         frmDisplayResult DisplayResultFrm;
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent(); //构造函数
             Test.testMain();
             web.Address = Global.WebURL;
         }
-        private void btnAbout_Click(object sender, RoutedEventArgs e)
+        private void btnAbout_Click(object sender, RoutedEventArgs e) //btnAbout的Click事件，关于按钮
         {
             web.Address = Global.WebURL + "about.html";
         }
-        private void frmMain_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void frmMain_SizeChanged(object sender, SizeChangedEventArgs e) //frmMain的SizeChanged事件
         {
             web.Height = grdContainer.ActualHeight - 25;
         }
-        private void btnEditSite_Click(object sender, RoutedEventArgs e)
+        private void btnEditSite_Click(object sender, RoutedEventArgs e) //btnEditSite的Click事件，添加、更改地点按钮
         {
             ModifySiteFrm = new frmModifySite();
             ModifySiteFrm.Show();
         }
 
-        private void btnNewConfig_Click(object sender, RoutedEventArgs e)
+        private void btnNewConfig_Click(object sender, RoutedEventArgs e) //btnNewConfig的Click事件，新建配置
         {
             Global.storage = new Storage();
             Global.configPath = null;
@@ -63,7 +61,7 @@ namespace nCov_Patient_Tracer
             lstPeople.Items.Clear();
             btnQuery.IsEnabled = false;
         }
-        private void btnLoadConfig_Click(object sender, RoutedEventArgs e)
+        private void btnLoadConfig_Click(object sender, RoutedEventArgs e) //btnLoadConfig的Click事件，加载配置
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "nCov-Patient-Tracer配置文件(*.ncov.bin)|*.ncov.bin|所有文件(*.*)|*.*";
@@ -77,7 +75,7 @@ namespace nCov_Patient_Tracer
                 );
             MessageBox.Show("加载成功！", "提示信息");
         }
-        private void btnSaveConfig_Click(object sender, RoutedEventArgs e)
+        private void btnSaveConfig_Click(object sender, RoutedEventArgs e) //btnSaveConfig的Click事件，保存配置
         {
             if (Global.configPath == null)
             {
@@ -95,24 +93,24 @@ namespace nCov_Patient_Tracer
             MessageBox.Show("保存成功！", "提示信息");
         }
 
-        private void frmMain_Closed(object sender, EventArgs e)
+        private void frmMain_Closed(object sender, EventArgs e) //frmMain的Closed事件
         {
             Environment.Exit(0);
         }
 
-        private void btnEditPerson_Click(object sender, RoutedEventArgs e)
+        private void btnEditPerson_Click(object sender, RoutedEventArgs e) //btnEditPerson的Click事件，展示添加、变更人员窗体
         {
             ModifyPersonFrm = new frmModifyPerson();
             ModifyPersonFrm.Show();
         }
 
-        private void btnEditTimeSpan_Click(object sender, RoutedEventArgs e)
+        private void btnEditTimeSpan_Click(object sender, RoutedEventArgs e) //btnEditTimeSpan的Click事件，展示添加、变更时间段窗体
         {
             ModifyTimeSpanFrm = new frmModifyTimeSpan();
             ModifyTimeSpanFrm.Show();
         }
 
-        private void btnGenData_Click(object sender, RoutedEventArgs e)
+        private void btnGenData_Click(object sender, RoutedEventArgs e) //btnGenData的Click事件，数据生成器按钮
         {
             int PeopleNumber = int.Parse(Interaction.InputBox("请输入随机生成的人员数目：", "数据生成器", "50"));
             int SiteNumber = int.Parse(Interaction.InputBox("请输入随机生成的地点数目：", "数据生成器", "20"));
@@ -159,7 +157,7 @@ namespace nCov_Patient_Tracer
             MessageBox.Show("随机生成成功！", "提示信息");
         }
 
-        private void btnVerifyData_Click(object sender, RoutedEventArgs e)
+        private void btnVerifyData_Click(object sender, RoutedEventArgs e) //btnVerifyData的Click事件，数据验证器按钮
         {
             Storage storage = Global.storage;
             for (int i = 0; i < storage.Persons.size(); i++)
@@ -209,13 +207,13 @@ namespace nCov_Patient_Tracer
             }
         }
 
-        private void btnViewResult_Click(object sender, RoutedEventArgs e)
+        private void btnViewResult_Click(object sender, RoutedEventArgs e) //btnViewResult的Click事件，展示查看结果窗体
         {
             DisplayResultFrm = new frmDisplayResult();
             DisplayResultFrm.Show();
         }
 
-        private void btnPrepare_Click(object sender, RoutedEventArgs e)
+        private void btnPrepare_Click(object sender, RoutedEventArgs e) //btnPrepare的Click事件，处理数据按钮
         {
             progress.Value = 0;
             Global.processedStorage = new ProcessedStorage(Global.storage);
@@ -235,17 +233,17 @@ namespace nCov_Patient_Tracer
             progress.Value = 100;
             web.Address = Global.WebURL + "displayinfo.html";
         }
-        private void runJavaScript(string command)
+        private void runJavaScript(string command) //在浏览器中执行Javascript
         {
             if (web.CanExecuteJavascriptInMainFrame) web.ExecuteScriptAsync(command);
         }
-        private void showDebugInformationInWeb(string content)
+        private void showDebugInformationInWeb(string content) //在浏览器中显示内容
         {
             runJavaScript(String.Format(
                 "document.body.innerHTML='{0}';", content
                 ));
         }
-        private void btnQuery_Click(object sender, RoutedEventArgs e)
+        private void btnQuery_Click(object sender, RoutedEventArgs e) //btnQuery的Click事件，查询结果按钮
         {
             if (lstPeople.SelectedItems.Count == 0)
             {
@@ -311,7 +309,7 @@ namespace nCov_Patient_Tracer
             DisplayResultFrm.Show();
         }
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
+        private void btnSave_Click(object sender, RoutedEventArgs e) //btnSave的Click事件，保存结果按钮
         {
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.Filter = "HTML网页(*.html)|*.html|所有文件(*.*)|*.*";
@@ -328,7 +326,7 @@ namespace nCov_Patient_Tracer
             });
         }
 
-        private void btnGenData2_Click(object sender, RoutedEventArgs e)
+        private void btnGenData2_Click(object sender, RoutedEventArgs e) //btnGenData2的Click事件，数据生成器2按钮
         {
             int PeopleNumber = int.Parse(Interaction.InputBox("请输入随机生成的人员数目：", "数据生成器", "10"));
             int SiteNumber = int.Parse(Interaction.InputBox("请输入随机生成的地点数目：", "数据生成器", "8"));
